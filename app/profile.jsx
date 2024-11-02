@@ -4,15 +4,36 @@ import { useRoute } from '@react-navigation/native';
 
 const Profile = () => {
   const route = useRoute();
-  const { tuckPushUps, leanHoldTime } = route.params || {};
+  const { name = 'N/A', selectedGoals = [], responses = {}, strengthLevels = {} } = route.params || {};
 
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Your Profile</Text>
       <View style={styles.infoBox}>
-        <Text style={styles.infoText}>Goals: Planche</Text>
-        <Text style={styles.infoText}>Tuck Planche Push-Ups: {tuckPushUps || 'N/A'}</Text>
-        <Text style={styles.infoText}>Lean Hold Time: {leanHoldTime || 'N/A'} seconds</Text>
+        <Text style={styles.infoText}>Name: {name}</Text>
+
+        {Array.isArray(selectedGoals) && selectedGoals.length > 0 ? (
+          selectedGoals.forEach((goal) => (
+            <View key={goal} style={styles.goalBox}>
+              <Text style={styles.infoText}>Goal: {goal}</Text>
+              <Text style={styles.infoText}>
+                Strength Level: {strengthLevels[goal] || 'N/A'}
+              </Text>
+
+              {Object.keys(responses).forEach((key) => {
+                if (key.startsWith(`${goal}-${strengthLevels[goal]}`)) {
+                  return (
+                    <Text key={key} style={styles.infoText}>
+                      {key.split('-').slice(-1)[0]}: {responses[key] || 'N/A'}
+                    </Text>
+                  );
+                }
+              })}
+            </View>
+          ))
+        ) : (
+          <Text style={styles.infoText}>No goals selected</Text>
+        )}
       </View>
     </View>
   );
@@ -44,5 +65,9 @@ const styles = StyleSheet.create({
     fontSize: 16,
     color: '#ffffff',
     marginVertical: 5,
+  },
+  goalBox: {
+    marginVertical: 15,
+    alignItems: 'center',
   },
 });
