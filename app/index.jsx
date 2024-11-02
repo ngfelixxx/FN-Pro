@@ -1,7 +1,6 @@
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View, TextInput, TouchableOpacity, ScrollView, KeyboardAvoidingView, Platform } from 'react-native';
 import { useState, useEffect } from 'react';
-import { Link } from 'expo-router';
 import { useNavigation } from '@react-navigation/native';
 
 export default function App() {
@@ -97,6 +96,43 @@ export default function App() {
     },
   };
 
+  const questionsLabels = {
+    Beginner: {
+      Planche: [
+        "Pseudo planche push-up count",
+        "Pseudo lean hold time",
+      ],
+      "Front Lever": [
+        "Australian pull-up count",
+        "Tuck front lever hold time",
+      ],
+    },
+    Intermediate: {
+      Planche: [
+        "Straddle planche hold time",
+        "Number of straddle planche push-ups",
+        "Number of straddle planche presses",
+      ],
+      "Front Lever": [
+        "Full front lever hold time",
+        "Number of front lever raises",
+        "Number of front lever pull-ups",
+      ],
+    },
+    Advanced: {
+      Planche: [
+        "Full planche hold time",
+        "Number of full planche push-ups",
+        "Number of full planche presses",
+      ],
+      "Front Lever": [
+        "Front lever touch hold time",
+        "Wide front lever hold time",
+        "Number of wide front lever raises",
+      ],
+    },
+  };  
+
   if (!isSubmitted) {
     return (
       <KeyboardAvoidingView style={{ flex: 1 }} behavior={Platform.OS === "ios" ? "padding" : "height"}>
@@ -188,32 +224,34 @@ export default function App() {
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Welcome to FN-Pro, {name}!</Text>
-  
-      {/* Updated Link to Profile with Parameters */}
-      <Link 
-        href={{
-          pathname: "/profile",
-          params: { 
-            name: name, 
-            selectedGoals: selectedGoals, 
-            strengthLevels: strengthLevels, 
-            responses: responses 
-          }
-        }} 
-        style={styles.link}
-      >
-        <View style={styles.button}>
-          <Text style={styles.buttonText}>Go to Profile</Text>
-        </View>
-      </Link>
-  
-      <Link href="/workout" style={styles.link}>
-        <View style={styles.button}>
-          <Text style={styles.buttonText}>Start Workout</Text>
-        </View>
-      </Link>
+      <View style={styles.infoBox}>
+        <Text style={styles.infoText}>Name: {name}</Text>
+
+        {Array.isArray(selectedGoals) && selectedGoals.length > 0 ? (
+          selectedGoals.map((goal) => (
+            <View key={goal} style={styles.goalBox}>
+              <Text style={styles.infoText}>Goal: {goal}</Text>
+              <Text style={styles.infoText}>
+                Strength Level: {strengthLevels[goal] || 'N/A'}
+              </Text>
+
+              {questionsLabels[strengthLevels[goal]][goal].map((question, index) => (
+                <Text key={`${goal}-${index}`} style={styles.infoText}>
+                    {question}: {responses[`${goal}-${strengthLevels[goal]}-${index}`] || 'N/A'}
+                </Text>
+                ))}
+            </View>
+          ))
+        ) : (
+          <Text style={styles.infoText}>No goals selected</Text>
+        )}
+      </View>
+
+      <TouchableOpacity style={styles.submitButton} onPress={() => navigation.navigate("training_plan")}>
+        <Text style={styles.submitButtonText}>See Training Plan</Text>
+        </TouchableOpacity>
     </View>
-  );  
+  );
 }
 
 const styles = StyleSheet.create({
@@ -253,27 +291,27 @@ const styles = StyleSheet.create({
     padding: 10,
     margin: 5,
     borderRadius: 5,
-    alignItems: 'center',
   },
   goalButtonSelected: {
-    backgroundColor: '#1E90FF',
+    backgroundColor: '#00bfff',
   },
   goalText: {
     color: '#ffffff',
-    fontSize: 16,
   },
   levelButton: {
-    backgroundColor: '#444444',
+    backgroundColor: '#333333',
     padding: 10,
     margin: 5,
     borderRadius: 5,
-    alignItems: 'center',
   },
   levelButtonSelected: {
-    backgroundColor: '#32CD32',
+    backgroundColor: '#00bfff',
+  },
+  levelText: {
+    color: '#ffffff',
   },
   submitButton: {
-    backgroundColor: '#1E90FF',
+    backgroundColor: '#1e90ff',
     padding: 15,
     borderRadius: 5,
     marginTop: 20,
@@ -283,19 +321,18 @@ const styles = StyleSheet.create({
     fontSize: 18,
     fontWeight: 'bold',
   },
-  link: {
+  infoBox: {
+    marginTop: 20,
+    padding: 20,
+    backgroundColor: '#333333',
+    borderRadius: 5,
     width: '100%',
   },
-  button: {
-    backgroundColor: '#1E90FF',
-    padding: 15,
-    borderRadius: 5,
-    alignItems: 'center',
+  infoText: {
+    color: '#ffffff',
+    marginBottom: 10,
+  },
+  goalBox: {
     marginTop: 10,
   },
-  buttonText: {
-    color: '#ffffff',
-    fontSize: 18,
-  },
 });
-
