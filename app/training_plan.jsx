@@ -1,28 +1,33 @@
-import React, { useState, useEffect } from 'react';
-import { StyleSheet, Text, View, Button, ScrollView } from 'react-native';
+import React, { useEffect, useState } from 'react';
+import { StyleSheet, Text, View, ScrollView } from 'react-native';
 import { useLocalSearchParams } from 'expo-router';
 
-const TrainingPlan = ({ route }) => {
-  console.log("Route parameters:", route ? route.params : "Route is undefined");
-  //const { strengthLevel, goal, responses } = route.params;
+const TrainingPlan = () => {
   const { strengthLevel, goal, responses } = useLocalSearchParams();
-  //const { strengthLevel, goal, responses } = useSearchParams();
-  const [trainingStarted, setTrainingStarted] = useState(false);
   const [trainingPlan, setTrainingPlan] = useState([]);
 
   useEffect(() => {
-    console.log("Strength Levels:", strengthLevel);
-    console.log("Goals:", goal);
-    console.log("Responses:", responses);
-    generateTrainingPlan();
-  }, []);
+    try {
+      // Parse JSON parameters into usable objects
+      const parsedStrengthLevel = JSON.parse(strengthLevel);
+      const parsedResponses = JSON.parse(responses);
 
-  const generateTrainingPlan = () => {
+      console.log("Parsed Strength Levels:", parsedStrengthLevel);
+      console.log("Parsed Responses:", parsedResponses);
+
+      // Pass parsed objects to `generateTrainingPlan`
+      generateTrainingPlan(parsedStrengthLevel, goal, parsedResponses);
+    } catch (error) {
+      console.error("Error parsing JSON parameters:", error);
+    }
+  }, [strengthLevel, goal, responses]);
+
+  const generateTrainingPlan = (level, goal, userResponses) => {
     const plan = [];
-    if (strengthLevel === "Beginner" || strengthLevel === "Intermediate") {
-      if (goal === "Planche") {
-        const pseudoPlanchePushupCount = parseInt(responses["Planche-Beginner-0"], 10);
-        const pseudoLeanHoldTime = parseInt(responses["Planche-Beginner-1"], 10);
+    if (level["Planche"] === "Beginner" || level["Planche"] === "Intermediate") {
+      if (goal.includes("Planche")) {
+        const pseudoPlanchePushupCount = parseInt(userResponses["Planche-Beginner-0"], 10);
+        const pseudoLeanHoldTime = parseInt(userResponses["Planche-Beginner-1"], 10);
 
         if (pseudoPlanchePushupCount === 0 || pseudoLeanHoldTime < 3) {
           plan.push(
@@ -33,38 +38,28 @@ const TrainingPlan = ({ route }) => {
             { name: "Cool Down: Knee Retracted Scapula Shrugs", reps: 3, sets: 5, rest: "1 min" },
             { name: "Resistance Training: Straight Arm Band Flies", reps: 10, sets: 3, rest: "30 sec" },
           );
-          setTrainingPlan(plan);
         }
       }
     }
-  };
-
-  const startTraining = () => {
-    setTrainingStarted(true);
+    setTrainingPlan(plan);
   };
 
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Training Plan</Text>
-      {trainingStarted ? (
-        <ScrollView contentContainerStyle={styles.planContainer}>
-          {trainingPlan.map((exercise, index) => (
-            <View key={index} style={styles.exerciseBox}>
-              <Text style={styles.exerciseName}>{exercise.name}</Text>
-              <Text style={styles.exerciseDetails}>
-                {exercise.reps ? `Reps: ${exercise.reps}` : `Duration: ${exercise.duration}`} | Sets: {exercise.sets} | Rest: {exercise.rest}
-              </Text>
-            </View>
-          ))}
-        </ScrollView>
-      ) : (
-        <Button title="See Training Plan" onPress={startTraining} color="#1E90FF" />
-      )}
+      <ScrollView contentContainerStyle={styles.planContainer}>
+        {trainingPlan.map((exercise, index) => (
+          <View key={index} style={styles.exerciseBox}>
+            <Text style={styles.exerciseName}>{exercise.name}</Text>
+            <Text style={styles.exerciseDetails}>
+              {exercise.reps ? `Reps: ${exercise.reps}` : `Duration: ${exercise.duration}`} | Sets: {exercise.sets} | Rest: {exercise.rest}
+            </Text>
+          </View>
+        ))}
+      </ScrollView>
     </View>
   );
 };
-
-export default TrainingPlan;
 
 const styles = StyleSheet.create({
   container: {
@@ -78,11 +73,6 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     color: '#ffffff',
     marginBottom: 20,
-  },
-  inProgressText: {
-    fontSize: 20,
-    color: '#32CD32',
-    marginTop: 10,
   },
   planContainer: {
     padding: 20,
@@ -106,3 +96,5 @@ const styles = StyleSheet.create({
     marginTop: 5,
   },
 });
+
+export default TrainingPlan;

@@ -252,12 +252,12 @@ export default function App() {
         style={styles.submitButton}
         onPress={() =>
             router.push({
-                pathname: "/training_plan",
-                params: {
-                  strengthLevel: strengthLevels,
-                  goal: selectedGoals,
-                  responses: responses,
-                },
+            pathname: "/training_plan",
+            params: {
+                strengthLevel: JSON.stringify(strengthLevels),
+                goal: selectedGoals,
+                responses: JSON.stringify(responses),
+            },
             })        
         }
         >
