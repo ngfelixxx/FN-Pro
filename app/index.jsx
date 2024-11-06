@@ -2,9 +2,11 @@ import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View, TextInput, TouchableOpacity, ScrollView, KeyboardAvoidingView, Platform } from 'react-native';
 import { useState, useEffect } from 'react';
 import { useNavigation } from '@react-navigation/native';
+import { useRouter } from 'expo-router';
 
 export default function App() {
   const navigation = useNavigation();
+  const router = useRouter();
   const [name, setName] = useState('');
   const [selectedGoals, setSelectedGoals] = useState([]);
   const [strengthLevels, setStrengthLevels] = useState({});
@@ -63,34 +65,34 @@ export default function App() {
     Beginner: {
       Planche: [
         "How many Pseudo Planche Push-Ups can you do?",
-        "How long can you hold the Pseudo Lean?",
+        "How long can you hold the Pseudo Lean?(seconds)",
       ],
       "Front Lever": [
         "How many Australian Pull-Ups can you do?",
-        "How long can you hold a Tuck Front Lever?",
+        "How long can you hold a Tuck Front Lever?(seconds)",
       ],
     },
     Intermediate: {
       Planche: [
-        "How long can you hold a straddle planche?",
+        "How long can you hold a straddle planche?(seconds)",
         "How many straddle planche push-ups can you do?",
         "How many straddle planche presses can you do?",
       ],
       "Front Lever": [
-        "How long can you hold a full front lever?",
+        "How long can you hold a full front lever?(seconds)",
         "How many front lever raises can you do?",
         "How many front lever pull-ups can you do?",
       ],
     },
     Advanced: {
       Planche: [
-        "How long can you hold a full planche?",
+        "How long can you hold a full planche?(seconds)",
         "How many full planche push-ups can you do?",
         "How many full planche presses can you do?",
       ],
       "Front Lever": [
-        "How long can you front lever touch?",
-        "How long can you hold a wide front lever?",
+        "How long can you front lever touch?(seconds)",
+        "How long can you hold a wide front lever?(seconds)",
         "How many wide front lever raises can you do?",
       ],
     },
@@ -100,34 +102,34 @@ export default function App() {
     Beginner: {
       Planche: [
         "Pseudo planche push-up count",
-        "Pseudo lean hold time",
+        "Pseudo lean hold time(seconds)",
       ],
       "Front Lever": [
         "Australian pull-up count",
-        "Tuck front lever hold time",
+        "Tuck front lever hold time(seconds)",
       ],
     },
     Intermediate: {
       Planche: [
-        "Straddle planche hold time",
+        "Straddle planche hold time(seconds)",
         "Number of straddle planche push-ups",
         "Number of straddle planche presses",
       ],
       "Front Lever": [
-        "Full front lever hold time",
+        "Full front lever hold time(seconds)",
         "Number of front lever raises",
         "Number of front lever pull-ups",
       ],
     },
     Advanced: {
       Planche: [
-        "Full planche hold time",
+        "Full planche hold time(seconds)",
         "Number of full planche push-ups",
         "Number of full planche presses",
       ],
       "Front Lever": [
-        "Front lever touch hold time",
-        "Wide front lever hold time",
+        "Front lever touch hold time(seconds)",
+        "Wide front lever hold time(seconds)",
         "Number of wide front lever raises",
       ],
     },
@@ -226,7 +228,6 @@ export default function App() {
       <Text style={styles.title}>Welcome to FN-Pro, {name}!</Text>
       <View style={styles.infoBox}>
         <Text style={styles.infoText}>Name: {name}</Text>
-
         {Array.isArray(selectedGoals) && selectedGoals.length > 0 ? (
           selectedGoals.map((goal) => (
             <View key={goal} style={styles.goalBox}>
@@ -246,8 +247,20 @@ export default function App() {
           <Text style={styles.infoText}>No goals selected</Text>
         )}
       </View>
-
-      <TouchableOpacity style={styles.submitButton} onPress={() => navigation.navigate("training_plan")}>
+        
+      <TouchableOpacity
+        style={styles.submitButton}
+        onPress={() =>
+            router.push({
+                pathname: "/training_plan",
+                params: {
+                  strengthLevel: strengthLevels,
+                  goal: selectedGoals,
+                  responses: responses,
+                },
+            })        
+        }
+        >
         <Text style={styles.submitButtonText}>See Training Plan</Text>
         </TouchableOpacity>
     </View>
