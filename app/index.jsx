@@ -3,6 +3,7 @@ import { StyleSheet, Text, View, TextInput, TouchableOpacity, ScrollView, Keyboa
 import { useState, useEffect } from 'react';
 import { useNavigation } from '@react-navigation/native';
 import { useRouter } from 'expo-router';
+import AsyncStorage from '@react-native-async-storage/async-storage';   
 
 export default function App() {
   const navigation = useNavigation();
@@ -13,6 +14,61 @@ export default function App() {
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [isGoalSubmitted, setIsGoalSubmitted] = useState(false);
   const [responses, setResponses] = useState({});
+
+  const handleReset = async () => {
+    try {
+      // Clear AsyncStorage data
+      await AsyncStorage.clear();
+      
+      // Reset all state variables to their initial values
+      setName('');
+      setSelectedGoals([]);
+      setStrengthLevels({});
+      setResponses({});
+      setIsSubmitted(false);
+      setIsGoalSubmitted(false);
+    } catch (error) {
+      console.log("Error clearing data", error);
+    }
+  };
+
+  const loadData = async () => {
+    try {
+      // Retrieve stored data
+      const storedName = await AsyncStorage.getItem('name');
+      const storedGoals = await AsyncStorage.getItem('selectedGoals');
+      const storedStrengthLevels = await AsyncStorage.getItem('strengthLevels');
+      const storedResponses = await AsyncStorage.getItem('responses');
+  
+      // Set state with stored data if it exists
+      if (storedName) setName(storedName);
+      if (storedGoals) setSelectedGoals(JSON.parse(storedGoals));
+      if (storedStrengthLevels) setStrengthLevels(JSON.parse(storedStrengthLevels));
+      if (storedResponses) setResponses(JSON.parse(storedResponses));
+  
+      // Set `isSubmitted` and `isGoalSubmitted` if data exists
+      if (storedName && storedGoals) {
+        setIsSubmitted(true);
+        setIsGoalSubmitted(true);
+      }
+    } catch (error) {
+      console.log("Error loading data", error);
+    }
+  };
+
+  useEffect(() => {
+    navigation.setOptions({
+      title: 'FN-Calisthenics',
+      headerRight: () => (
+        <TouchableOpacity onPress={handleReset}>
+          <Text style={{ color: '#ffffff', marginRight: 10 }}>Reset</Text>
+        </TouchableOpacity>
+      ),
+    });
+  
+    loadData(); // Load data when component mounts
+  }, [navigation]);
+  
 
   useEffect(() => {
     navigation.setOptions({ title: 'FN-Calisthenics' });
