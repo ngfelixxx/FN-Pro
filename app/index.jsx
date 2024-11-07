@@ -65,7 +65,7 @@ export default function App() {
     Beginner: {
       Planche: [
         "How many Pseudo Planche Push-Ups can you do?",
-        "How long can you hold the Pseudo Lean?(seconds)",
+        "How long can you hold the Pseudo Planche Lean?(seconds)",
       ],
       "Front Lever": [
         "How many Australian Pull-Ups can you do?",
@@ -102,7 +102,7 @@ export default function App() {
     Beginner: {
       Planche: [
         "Pseudo planche push-up count",
-        "Pseudo lean hold time(seconds)",
+        "Pseudo planche lean hold time(seconds)",
       ],
       "Front Lever": [
         "Australian pull-up count",

@@ -76,9 +76,9 @@ const TrainingPlan = () => {
   // Workout for Week 1, 2, and 3
   const generateWeek1Workout = () => [
     { name: "Warm-Up: Shoulder Dislocates", reps: 10, sets: 2, rest: "30 sec" },
-    { name: "Skill Development: Regular Push-Ups", reps: 3, sets: 10, rest: "1 min" },
-    { name: "Skill Development: Regular Dips (Band Assisted/Unassisted)", reps: 3, sets: 2, rest: "2 min" },
-    { name: "Skill Development: Pseudo Lean Hold on Knees", duration: "5 sec", sets: 5, rest: "1 min" },
+    { name: "Activation: Regular Push-Ups", reps: 3, sets: 3, rest: "1 min" },
+    { name: "Skill Development: Regular Dips", reps: 3, sets: 2, rest: "2 min" },
+    { name: "Skill Development: Pseudo Planche Leans On Knees", duration: "5 sec", sets: 5, rest: "1 min" },
     { name: "Resistance Training: Straight Arm Band Flies", reps: 10, sets: 3, rest: "30 sec" },
     { name: "Cool Down: Retractive Scapula Shrugs", reps: 3, sets: 5, rest: "1 min" },
   ];
@@ -87,8 +87,8 @@ const TrainingPlan = () => {
   const generateWeek4_5Workout = () => [
     { name: "Warm-Up: Shoulder Dislocates", reps: 10, sets: 2, rest: "30 sec" },
     { name: "Activation: Regular Push-Ups", reps: 3, sets: 3, rest: "1 min" },
-    { name: "Skill Development: Pseudo Lean Hold (Band Assisted/Unassisted)", duration: "5 sec", sets: 5, rest: "3 min" },
-    { name: "Skill Development: Pseudo Push-Ups (Band Assisted/Unassisted)", reps: 5, sets: 5, rest: "3 min" },
+    { name: "Skill Development: Pseudo Planche Leans On Knees", duration: "5 sec", sets: 5, rest: "3 min" },
+    { name: "Skill Development: Pseudo Push-Ups On Knees", reps: 5, sets: 5, rest: "3 min" },
     { name: "Resistance Training: Straight Arm Band Flies", reps: 10, sets: 3, rest: "30 sec" },
     { name: "Cool Down: Retractive Scapula Shrugs", reps: 3, sets: 5, rest: "1 min" },
   ];
