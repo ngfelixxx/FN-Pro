@@ -1,14 +1,28 @@
 import React, { useEffect, useState } from 'react';
-import { StyleSheet, Text, View, ScrollView, TouchableOpacity } from 'react-native';
+import { StyleSheet, Text, View, ScrollView, TouchableOpacity, Modal } from 'react-native';
 import { useLocalSearchParams } from 'expo-router';
-import AsyncStorage from '@react-native-async-storage/async-storage';   
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useNavigation } from '@react-navigation/native';
+import { Video } from 'expo-av';
 
 const TrainingPlan = () => {
   const { strengthLevel, goal, responses } = useLocalSearchParams();
   const [trainingPlan, setTrainingPlan] = useState([]);  // Initialize as an empty array
   const [completedDays, setCompletedDays] = useState({}); // Track completed days
   const navigation = useNavigation();
+  const [modalVisible, setModalVisible] = useState(false);
+  const [videoSource, setVideoSource] = useState(null);
+
+  const openVideoModal = (exerciseName) => {
+    // Assuming you have a mapping of exercise names to video files
+    const videoMap = {
+      "Warm-Up: Shoulder Dislocates": require('../assets/videos/Shoulder Dislocates.mp4'),
+      // Add other exercises here
+    };
+
+    setVideoSource(videoMap[exerciseName]);
+    setModalVisible(true);
+  };
 
   useEffect(() => {
     const fetchCompletedDays = async () => {
@@ -230,7 +244,12 @@ const TrainingPlan = () => {
                 </Text>
                 {day.workout.map((exercise, exIndex) => (
                   <View key={exIndex} style={styles.exerciseBox}>
-                    <Text style={styles.exerciseName}>{exercise.name}</Text>
+                    <View style={styles.exerciseHeader}>
+                      <Text style={styles.exerciseName}>{exercise.name}</Text>
+                      <TouchableOpacity onPress={() => openVideoModal(exercise.name)} style={styles.questionMarkButton}>
+                        <Text style={styles.questionMark}>?</Text>
+                      </TouchableOpacity>
+                    </View>
                     <Text style={styles.exerciseDetails}>
                       {exercise.reps ? `Reps: ${exercise.reps}` : `Duration: ${exercise.duration}`} | Sets: {exercise.sets} | Rest: {exercise.rest}
                     </Text>
@@ -240,14 +259,33 @@ const TrainingPlan = () => {
             ))}
           </View>
         ))}
-        <View style={styles.container}>
-        <TouchableOpacity 
-        style={styles.startNewCycleButton}
-        onPress={() => navigation.navigate('start_new_cycle')}>
-        <Text style={styles.startNewCycleButtonText}>Start Next Cycle</Text>
-      </TouchableOpacity>
-        </View>
+        {/* Your start new cycle button code here */}
       </ScrollView>
+
+      {/* Modal for video */}
+      <Modal
+        visible={modalVisible}
+        transparent={true}
+        animationType="slide"
+        onRequestClose={() => setModalVisible(false)}
+      >
+        <View style={styles.modalContainer}>
+          <View style={styles.modalContent}>
+            <Video
+              source={videoSource}
+              rate={1.0}
+              volume={1.0}
+              isMuted={false}
+              resizeMode="cover"
+              shouldPlay
+              style={styles.video}
+            />
+            <TouchableOpacity onPress={() => setModalVisible(false)} style={styles.closeButton}>
+              <Text style={styles.closeButtonText}>Close</Text>
+            </TouchableOpacity>
+          </View>
+        </View>
+      </Modal>
     </View>
   );
 };
@@ -325,6 +363,62 @@ const styles = StyleSheet.create({
     color: '#ffffff', // White text
     fontSize: 18, // Text size
     fontWeight: 'bold', // Bold text
+  },
+  questionMark: {
+    fontSize: 20,
+    color: '#00bfff',
+    marginLeft: 10,
+  },
+  modalContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: 'rgba(0, 0, 0, 0.5)',
+  },
+  modalContent: {
+    width: '90%',
+    backgroundColor: 'white',
+    padding: 20,
+    borderRadius: 10,
+    alignItems: 'center',
+  },
+  video: {
+    width: '100%',
+    height: 200,
+  },
+  closeButton: {
+    marginTop: 20,
+    paddingVertical: 10,
+    paddingHorizontal: 20,
+    backgroundColor: '#1e90ff',
+    borderRadius: 5,
+  },
+  closeButtonText: {
+    color: 'white',
+    fontWeight: 'bold',
+  },
+  exerciseHeader: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  exerciseName: {
+    fontSize: 16,
+    color: '#00bfff',
+    flex: 1,
+  },
+  questionMarkButton: {
+    marginLeft: 8,
+    backgroundColor: '#00bfff',
+    width: 20,
+    height: 20,
+    borderRadius: 10,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  questionMark: {
+    color: '#fff',
+    fontSize: 12,
+    fontWeight: 'bold',
   },
 });
 
