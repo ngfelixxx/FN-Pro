@@ -1,11 +1,27 @@
 import React, { useEffect, useState } from 'react';
 import { StyleSheet, Text, View, ScrollView, TouchableOpacity } from 'react-native';
 import { useLocalSearchParams } from 'expo-router';
+import AsyncStorage from '@react-native-async-storage/async-storage';   
 
 const TrainingPlan = () => {
   const { strengthLevel, goal, responses } = useLocalSearchParams();
   const [trainingPlan, setTrainingPlan] = useState([]);  // Initialize as an empty array
   const [completedDays, setCompletedDays] = useState({}); // Track completed days
+
+  useEffect(() => {
+    const fetchCompletedDays = async () => {
+        try {
+            const storedCompletedDays = await AsyncStorage.getItem('completedDays');
+            if (storedCompletedDays) {
+                setCompletedDays(JSON.parse(storedCompletedDays));
+            }
+        } catch (error) {
+            console.error('Error fetching completed days:', error);
+        }
+    };
+
+    fetchCompletedDays();
+}, []);
 
   useEffect(() => {
     try {
@@ -112,6 +128,7 @@ const TrainingPlan = () => {
     setCompletedDays(prevState => {
       const updatedState = { ...prevState };
       updatedState[`${weekIndex}-${dayIndex}`] = !updatedState[`${weekIndex}-${dayIndex}`];
+      AsyncStorage.setItem('completedDays', JSON.stringify(updatedState));
       return updatedState;
     });
   };
