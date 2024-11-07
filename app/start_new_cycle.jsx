@@ -45,7 +45,14 @@ export default function StartNewCycle() {
 
   const clearAsyncStorageExceptName = async () => {
     try {
-        await AsyncStorage.clear();
+        // Get all the keys from AsyncStorage
+        const keys = await AsyncStorage.getAllKeys();
+        
+        // Filter out the 'name' key so it is not cleared
+        const keysToRemove = keys.filter(key => key !== 'name');
+        
+        // Remove all keys except 'name'
+        await AsyncStorage.multiRemove(keysToRemove);
     
         // Reset all state variables to their initial values
         setSelectedGoals([]);
