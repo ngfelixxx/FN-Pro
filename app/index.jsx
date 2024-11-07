@@ -347,26 +347,6 @@ const styles = StyleSheet.create({
     color: '#ffffff',
     marginBottom: 10,
   },
-  input: {
-    width: '100%',
-    backgroundColor: '#333333',
-    color: '#ffffff',
-    padding: 10,
-    borderRadius: 5,
-    marginBottom: 20,
-  },
-  goalButton: {
-    backgroundColor: '#333333',
-    padding: 10,
-    margin: 5,
-    borderRadius: 5,
-  },
-  goalButtonSelected: {
-    backgroundColor: '#00bfff',
-  },
-  goalText: {
-    color: '#ffffff',
-  },
   levelButton: {
     backgroundColor: '#333333',
     padding: 10,
@@ -379,11 +359,37 @@ const styles = StyleSheet.create({
   levelText: {
     color: '#ffffff',
   },
+  input: {
+    width: '100%', // Full width
+    backgroundColor: '#333333',
+    color: '#ffffff',
+    padding: 10,
+    borderRadius: 5,
+    marginBottom: 20,
+  },
+  goalButton: {
+    width: '100%', // Full width
+    backgroundColor: '#333333',
+    padding: 10,
+    marginVertical: 5,
+    borderRadius: 5,
+    alignItems: 'center',  // Center text horizontally
+    justifyContent: 'center', // Center text vertically
+  },
+  goalButtonSelected: {
+    width: '100%', // Full width for selected state as well
+    backgroundColor: '#00bfff',
+    alignItems: 'center',  // Center text horizontally
+    justifyContent: 'center', // Center text vertically
+  },
   submitButton: {
+    width: '100%', // Full width
     backgroundColor: '#1e90ff',
     padding: 15,
     borderRadius: 5,
     marginTop: 20,
+    alignItems: 'center',  // Center text horizontally
+    justifyContent: 'center', // Center text vertically
   },
   submitButtonText: {
     color: '#ffffff',
@@ -403,5 +409,8 @@ const styles = StyleSheet.create({
   },
   goalBox: {
     marginTop: 10,
+  },
+  goalText: {
+    color: '#ffffff', // White text by default
   },
 });
