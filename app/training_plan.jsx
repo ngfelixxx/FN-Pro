@@ -9,17 +9,14 @@ const TrainingPlan = () => {
 
   useEffect(() => {
     try {
-      // Check if necessary params are present before proceeding
       if (!strengthLevel || !goal || !responses) return;
 
-      // Parse JSON parameters into usable objects
       const parsedStrengthLevel = JSON.parse(strengthLevel);
       const parsedResponses = JSON.parse(responses);
 
       console.log("Parsed Strength Levels:", parsedStrengthLevel);
       console.log("Parsed Responses:", parsedResponses);
 
-      // Pass parsed objects to generateTrainingPlan
       generateTrainingPlan(parsedStrengthLevel, goal, parsedResponses);
     } catch (error) {
       console.error("Error parsing JSON parameters:", error);
@@ -34,7 +31,7 @@ const TrainingPlan = () => {
       const pseudoLeanHoldTime = parseInt(userResponses["Planche-Beginner-1"], 10);
 
       if (pseudoPlanchePushupCount === 0 || pseudoLeanHoldTime < 3) {
-        // First 3 weeks routine
+        // First 2 weeks routine
         for (let week = 1; week <= 2; week++) {
           plan.push({ 
             week: `Week ${week}`,
@@ -46,7 +43,7 @@ const TrainingPlan = () => {
           });
         }
 
-        // 4th and 5th weeks routine (modified)
+        // 3rd and 4th weeks routine (modified)
         for (let week = 3; week <= 4; week++) {
           plan.push({
             week: `Week ${week}`,
@@ -54,6 +51,30 @@ const TrainingPlan = () => {
               { day: "Monday", workout: generateWeek4_5Workout() },
               { day: "Wednesday", workout: generateWeek4_5Workout() },
               { day: "Friday", workout: generateWeek4_5Workout() }
+            ]
+          });
+        }
+      } else if (pseudoPlanchePushupCount >= 1 && pseudoPlanchePushupCount < 6 || pseudoLeanHoldTime > 3 && pseudoLeanHoldTime < 8) {
+        // New conditional routine for weeks 1 and 2
+        for (let week = 1; week <= 2; week++) {
+          plan.push({
+            week: `Week ${week}`,
+            days: [
+              { day: "Monday", workout: generateNewWeek1Workout() },
+              { day: "Wednesday", workout: generateNewWeek1Workout() },
+              { day: "Friday", workout: generateNewWeek1Workout() }
+            ]
+          });
+        }
+
+        // New conditional routine for weeks 3 and 4
+        for (let week = 3; week <= 4; week++) {
+          plan.push({
+            week: `Week ${week}`,
+            days: [
+              { day: "Monday", workout: generateNewWeek4_5Workout() },
+              { day: "Wednesday", workout: generateNewWeek4_5Workout() },
+              { day: "Friday", workout: generateNewWeek4_5Workout() }
             ]
           });
         }
@@ -71,7 +92,7 @@ const TrainingPlan = () => {
     });
   };
 
-  // Workout for Week 1, 2, and 3
+  // Workout for Week 1 and 2
   const generateWeek1Workout = () => [
     { name: "Warm-Up: Shoulder Dislocates", reps: 10, sets: 2, rest: "30 sec" },
     { name: "Activation: Regular Push-Ups", reps: 3, sets: 3, rest: "1 min" },
@@ -81,7 +102,7 @@ const TrainingPlan = () => {
     { name: "Cool Down: Horizontal Retractive Scapula Pull Up", reps: 3, sets: 5, rest: "1 min" },
   ];
 
-  // Workout for Week 4 and 5 (modified)
+  // Workout for Week 3 and 4 (modified)
   const generateWeek4_5Workout = () => [
     { name: "Warm-Up: Shoulder Dislocates", reps: 10, sets: 2, rest: "30 sec" },
     { name: "Activation: Regular Push-Ups", reps: 3, sets: 3, rest: "1 min" },
@@ -91,7 +112,29 @@ const TrainingPlan = () => {
     { name: "Cool Down: Horizontal Retractive Scapula Pull Up", reps: 3, sets: 5, rest: "1 min" },
   ];
 
-  // Check if trainingPlan is loaded before rendering
+  // New Conditional Workouts
+  const generateNewWeek1Workout = () => [
+    { name: "Warm-Up: Shoulder Dislocates", reps: 10, sets: 2, rest: "30 sec" },
+    { name: "Activation: Explosive Pseudo Push-Ups on Knees", reps: 3, sets: 3, rest: "1 min" },
+    { name: "Skill Development: Pseudo Planche Leans", duration: "5 sec", sets: 4, rest: "1 min" },
+    { name: "Skill Development: Swing to Tuck Planche Support", reps: 3, sets: 5, rest: "2 min" },
+    { name: "Skill Development: Banded Tuck Planche Hold", duration: "3 sec", sets: 10, rest: "3 min" },
+    { name: "Skill Development: Pseudo Planche Push-Ups", reps: 3, sets: 5, rest: "3 min" },
+    { name: "Resistance Training: Straight Arm Band Flies", reps: 10, sets: 3, rest: "30 sec" },
+    { name: "Cool Down: Horizontal Retractive Scapula Pull Up", reps: 3, sets: 5, rest: "1 min" },
+  ];
+
+  const generateNewWeek4_5Workout = () => [
+    { name: "Warm-Up: Shoulder Dislocates", reps: 10, sets: 2, rest: "30 sec" },
+    { name: "Activation: Explosive Pseudo Push-Ups on Knees", reps: 3, sets: 3, rest: "1 min" },
+    { name: "Skill Development: Pseudo Planche Leans", duration: "3 sec", sets: 5, rest: "1 min" },
+    { name: "Skill Development: Swing to Tuck Planche Support", reps: 2, sets: 5, rest: "2 min" },
+    { name: "Skill Development: Banded Tuck Planche Hold", duration: "3 sec", sets: 15, rest: "3 min" },
+    { name: "Skill Development: Pseudo Planche Push-Ups", reps: 3, sets: 7, rest: "3 min" },
+    { name: "Resistance Training: Straight Arm Band Flies", reps: 10, sets: 3, rest: "30 sec" },
+    { name: "Cool Down: Horizontal Retractive Scapula Pull Up", reps: 3, sets: 5, rest: "1 min" },
+  ];
+
   if (!trainingPlan.length) {
     return (
       <View style={styles.container}>
@@ -108,7 +151,7 @@ const TrainingPlan = () => {
           <View key={weekIndex} style={styles.weekBox}>
             <Text style={styles.weekTitle}>{week.week}</Text>
             {week.days.map((day, dayIndex) => (
-              <TouchableOpacity
+                <TouchableOpacity
                 key={dayIndex}
                 onPress={() => toggleCompleted(weekIndex, dayIndex)}
                 style={[
