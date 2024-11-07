@@ -78,6 +78,30 @@ const TrainingPlan = () => {
             ]
           });
         }
+      } else if (pseudoPlanchePushupCount >= 6 || pseudoLeanHoldTime >= 8) {
+        // New advanced conditional routine for weeks 1 and 2
+        for (let week = 1; week <= 2; week++) {
+          plan.push({
+            week: `Week ${week}`,
+            days: [
+              { day: "Monday", workout: generateAdvancedWeek1Workout() },
+              { day: "Wednesday", workout: generateAdvancedWeek1Workout() },
+              { day: "Friday", workout: generateAdvancedWeek1Workout() }
+            ]
+          });
+        }
+
+        // New advanced conditional routine for weeks 3 and 4
+        for (let week = 3; week <= 4; week++) {
+          plan.push({
+            week: `Week ${week}`,
+            days: [
+              { day: "Monday", workout: generateAdvancedWeek4_5Workout() },
+              { day: "Wednesday", workout: generateAdvancedWeek4_5Workout() },
+              { day: "Friday", workout: generateAdvancedWeek4_5Workout() }
+            ]
+          });
+        }
       }
     }
 
@@ -112,7 +136,7 @@ const TrainingPlan = () => {
     { name: "Cool Down: Horizontal Retractive Scapula Pull Up", reps: 3, sets: 5, rest: "1 min" },
   ];
 
-  // New Conditional Workouts
+  // New Conditional Workouts for Pseudo Planche Push-Up Count >= 1 and < 6 or Pseudo Lean Hold > 3 seconds and < 8 seconds
   const generateNewWeek1Workout = () => [
     { name: "Warm-Up: Shoulder Dislocates", reps: 10, sets: 2, rest: "30 sec" },
     { name: "Activation: Explosive Pseudo Push-Ups on Knees", reps: 3, sets: 3, rest: "1 min" },
@@ -135,6 +159,29 @@ const TrainingPlan = () => {
     { name: "Cool Down: Horizontal Retractive Scapula Pull Up", reps: 3, sets: 5, rest: "1 min" },
   ];
 
+  // Advanced Conditional Workouts for Pseudo Planche Push-Up Count >= 6 or Pseudo Lean Hold >= 8 seconds
+  const generateAdvancedWeek1Workout = () => [
+    { name: "Warm-Up: Shoulder Dislocates", reps: 10, sets: 2, rest: "30 sec" },
+    { name: "Activation: Explosive Pseudo Push-Ups on Knees", reps: 3, sets: 3, rest: "1 min" },
+    { name: "Skill Development: Advanced Tuck Planche Holds", duration: "3 sec", sets: 10, rest: "2 min" },
+    { name: "Skill Development: Tuck Planche Hold", duration: "5 sec", sets: 10, rest: "3 min" },
+    { name: "Skill Development: Swing to Tuck Planche Support", reps: 3, sets: 5, rest: "2 min" },
+    { name: "Skill Development: Band Assisted Tuck Planche Push-Ups", reps: 3, sets: 5, rest: "3 min" },
+    { name: "Resistance Training: Straight Arm Band Flies", reps: 10, sets: 3, rest: "30 sec" },
+    { name: "Cool Down: Horizontal Retractive Scapula Pull Up", reps: 3, sets: 5, rest: "1 min" },
+  ];
+
+  const generateAdvancedWeek4_5Workout = () => [
+    { name: "Warm-Up: Shoulder Dislocates", reps: 10, sets: 2, rest: "30 sec" },
+    { name: "Activation: Explosive Pseudo Push-Ups on Knees", reps: 3, sets: 3, rest: "1 min" },
+    { name: "Skill Development: Advanced Tuck Planche Holds", duration: "3 sec", sets: 10, rest: "2 min" },
+    { name: "Skill Development: Tuck Planche Hold", duration: "3 sec", sets: 15, rest: "3 min" },
+    { name: "Skill Development: Swing to Tuck Planche Support", reps: 3, sets: 5, rest: "2 min" },
+    { name: "Skill Development: Band Assisted Tuck Planche Push-Ups", reps: 3, sets: 7, rest: "3 min" },
+    { name: "Resistance Training: Straight Arm Band Flies", reps: 10, sets: 3, rest: "30 sec" },
+    { name: "Cool Down: Horizontal Retractive Scapula Pull Up", reps: 3, sets: 5, rest: "1 min" },
+  ];
+
   if (!trainingPlan.length) {
     return (
       <View style={styles.container}>
@@ -151,7 +198,7 @@ const TrainingPlan = () => {
           <View key={weekIndex} style={styles.weekBox}>
             <Text style={styles.weekTitle}>{week.week}</Text>
             {week.days.map((day, dayIndex) => (
-                <TouchableOpacity
+              <TouchableOpacity
                 key={dayIndex}
                 onPress={() => toggleCompleted(weekIndex, dayIndex)}
                 style={[
