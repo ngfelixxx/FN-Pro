@@ -35,27 +35,25 @@ const TrainingPlan = () => {
 
       if (pseudoPlanchePushupCount === 0 || pseudoLeanHoldTime < 3) {
         // First 3 weeks routine
-        for (let week = 1; week <= 3; week++) {
+        for (let week = 1; week <= 2; week++) {
           plan.push({ 
             week: `Week ${week}`,
             days: [
               { day: "Monday", workout: generateWeek1Workout() },
               { day: "Wednesday", workout: generateWeek1Workout() },
-              { day: "Friday", workout: generateWeek1Workout() },
-              { day: "Sunday", workout: generateWeek1Workout() }
+              { day: "Friday", workout: generateWeek1Workout() }
             ]
           });
         }
 
         // 4th and 5th weeks routine (modified)
-        for (let week = 4; week <= 5; week++) {
+        for (let week = 3; week <= 4; week++) {
           plan.push({
             week: `Week ${week}`,
             days: [
               { day: "Monday", workout: generateWeek4_5Workout() },
               { day: "Wednesday", workout: generateWeek4_5Workout() },
-              { day: "Friday", workout: generateWeek4_5Workout() },
-              { day: "Sunday", workout: generateWeek4_5Workout() }
+              { day: "Friday", workout: generateWeek4_5Workout() }
             ]
           });
         }
@@ -80,7 +78,7 @@ const TrainingPlan = () => {
     { name: "Skill Development: Regular Dips", reps: 3, sets: 2, rest: "2 min" },
     { name: "Skill Development: Pseudo Planche Leans On Knees", duration: "5 sec", sets: 5, rest: "1 min" },
     { name: "Resistance Training: Straight Arm Band Flies", reps: 10, sets: 3, rest: "30 sec" },
-    { name: "Cool Down: Retractive Scapula Shrugs", reps: 3, sets: 5, rest: "1 min" },
+    { name: "Cool Down: Horizontal Retractive Scapula Pull Up", reps: 3, sets: 5, rest: "1 min" },
   ];
 
   // Workout for Week 4 and 5 (modified)
@@ -88,9 +86,9 @@ const TrainingPlan = () => {
     { name: "Warm-Up: Shoulder Dislocates", reps: 10, sets: 2, rest: "30 sec" },
     { name: "Activation: Regular Push-Ups", reps: 3, sets: 3, rest: "1 min" },
     { name: "Skill Development: Pseudo Planche Leans On Knees", duration: "5 sec", sets: 5, rest: "3 min" },
-    { name: "Skill Development: Pseudo Push-Ups On Knees", reps: 5, sets: 5, rest: "3 min" },
+    { name: "Skill Development: Pseudo Planche Push-Ups On Knees", reps: 5, sets: 5, rest: "3 min" },
     { name: "Resistance Training: Straight Arm Band Flies", reps: 10, sets: 3, rest: "30 sec" },
-    { name: "Cool Down: Retractive Scapula Shrugs", reps: 3, sets: 5, rest: "1 min" },
+    { name: "Cool Down: Horizontal Retractive Scapula Pull Up", reps: 3, sets: 5, rest: "1 min" },
   ];
 
   // Check if trainingPlan is loaded before rendering
