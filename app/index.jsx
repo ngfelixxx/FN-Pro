@@ -4,6 +4,8 @@ import { useState, useEffect } from 'react';
 import { useNavigation } from '@react-navigation/native';
 import { useRouter } from 'expo-router';
 import AsyncStorage from '@react-native-async-storage/async-storage';   
+import { useFocusEffect } from '@react-navigation/native';
+import React from 'react';
 
 export default function App() {
   const navigation = useNavigation();
@@ -14,6 +16,22 @@ export default function App() {
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [isGoalSubmitted, setIsGoalSubmitted] = useState(false);
   const [responses, setResponses] = useState({});
+
+  useFocusEffect(
+    React.useCallback(() => {
+      const fetchData = async () => {
+        // Load updated data from AsyncStorage here
+        const goals = await AsyncStorage.getItem('selectedGoals');
+        const levels = await AsyncStorage.getItem('strengthLevels');
+        const responses = await AsyncStorage.getItem('responses');
+        setSelectedGoals(JSON.parse(goals));
+        setStrengthLevels(JSON.parse(levels));
+        setResponses(JSON.parse(responses));
+      };
+  
+      fetchData();
+    }, [])
+  );
 
   const handleReset = async () => {
     try {
@@ -93,7 +111,7 @@ export default function App() {
     }));
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     if (name) {
       setIsSubmitted(true);
     } else {

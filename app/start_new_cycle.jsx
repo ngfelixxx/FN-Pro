@@ -45,40 +45,62 @@ export default function StartNewCycle() {
 
   const clearAsyncStorageExceptName = async () => {
     try {
+        console.log("clearAsyncStorageExceptName called");
+
         // Get all the keys from AsyncStorage
         const keys = await AsyncStorage.getAllKeys();
+        
+        // Log the current values of all keys
+        console.log("All keys before removal:", keys);
+        
+        // Get values associated with the keys before clearing
+        for (const key of keys) {
+            const value = await AsyncStorage.getItem(key);
+            console.log(`Value of ${key}:`, value);
+        }
         
         // Filter out the 'name' key so it is not cleared
         const keysToRemove = keys.filter(key => key !== 'name');
         
         // Remove all keys except 'name'
         await AsyncStorage.multiRemove(keysToRemove);
-    
+        
+        console.log("Remaining keys after clear:", await AsyncStorage.getAllKeys());
+
         // Reset all state variables to their initial values
         setSelectedGoals([]);
         setStrengthLevels({});
         setResponses({});
-      } catch (error) {
-        console.log("Error clearing data", error);
-      }
-  };
-  
-  const handleSubmit = async () => {
-    try {
-      // Clear AsyncStorage (except 'name')
-      await clearAsyncStorageExceptName();
-  
-      // Store the new values in AsyncStorage
-      await AsyncStorage.setItem('selectedGoals', JSON.stringify(selectedGoals));
-      await AsyncStorage.setItem('strengthLevels', JSON.stringify(strengthLevels));
-      await AsyncStorage.setItem('responses', JSON.stringify(responses));
-  
-      // Return to the home screen
-      navigation.navigate('index');
+        setIsSubmitted(false);
     } catch (error) {
-      console.log("Error saving data", error);
+        console.log("Error clearing data", error);
     }
-  };
+};
+
+const handleSubmit = async () => {
+    try {
+        console.log("handleSubmit called");
+
+        // Log state before clearing AsyncStorage
+        console.log("State before clear:", { selectedGoals, strengthLevels, responses });
+        
+        // Clear AsyncStorage (except 'name')
+        await clearAsyncStorageExceptName();
+  
+        // Store the new values in AsyncStorage
+        await AsyncStorage.setItem('selectedGoals', JSON.stringify(selectedGoals));
+        await AsyncStorage.setItem('strengthLevels', JSON.stringify(strengthLevels));
+        await AsyncStorage.setItem('responses', JSON.stringify(responses));
+
+        // Log state after saving
+        console.log("State after save:", { selectedGoals, strengthLevels, responses });
+  
+        // Return to the home screen
+        navigation.navigate('index');
+    } catch (error) {
+        console.log("Error saving data", error);
+    }
+};
   
 
   if (!isSubmitted) {
