@@ -242,6 +242,7 @@ const styles = StyleSheet.create({
   planContainer: {
     padding: 20,
     alignItems: 'center',
+    paddingBottom: 600,
   },
   weekBox: {
     backgroundColor: '#333333',
