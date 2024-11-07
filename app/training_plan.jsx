@@ -2,11 +2,13 @@ import React, { useEffect, useState } from 'react';
 import { StyleSheet, Text, View, ScrollView, TouchableOpacity } from 'react-native';
 import { useLocalSearchParams } from 'expo-router';
 import AsyncStorage from '@react-native-async-storage/async-storage';   
+import { useNavigation } from '@react-navigation/native';
 
 const TrainingPlan = () => {
   const { strengthLevel, goal, responses } = useLocalSearchParams();
   const [trainingPlan, setTrainingPlan] = useState([]);  // Initialize as an empty array
   const [completedDays, setCompletedDays] = useState({}); // Track completed days
+  const navigation = useNavigation();
 
   useEffect(() => {
     const fetchCompletedDays = async () => {
@@ -238,6 +240,13 @@ const TrainingPlan = () => {
             ))}
           </View>
         ))}
+        <View style={styles.container}>
+        <TouchableOpacity 
+        style={styles.startNewCycleButton}
+        onPress={() => navigation.navigate('start_new_cycle')}>
+        <Text style={styles.startNewCycleButtonText}>Start Next Cycle</Text>
+      </TouchableOpacity>
+        </View>
       </ScrollView>
     </View>
   );
@@ -299,6 +308,23 @@ const styles = StyleSheet.create({
   exerciseDetails: {
     fontSize: 14,
     color: '#ffffff',
+  },
+  startNewCycleButton: {
+    position: 'absolute', // Position at the bottom of the screen
+    bottom: 20, // Space from the bottom
+    width: '90%', // Make the button take most of the width
+    backgroundColor: '#1e90ff', // Blue background
+    padding: 15,
+    borderRadius: 10, // Rounded corners
+    alignItems: 'center', // Center text inside the button
+    justifyContent: 'center', // Center text vertically
+    marginTop: 'auto', // Push the button to the bottom of the scrollable area
+    marginBottom: -100, // Adjust this value to shift the button lower
+  },
+  startNewCycleButtonText: {
+    color: '#ffffff', // White text
+    fontSize: 18, // Text size
+    fontWeight: 'bold', // Bold text
   },
 });
 
