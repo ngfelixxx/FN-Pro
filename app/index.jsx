@@ -16,6 +16,32 @@ export default function App() {
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [isGoalSubmitted, setIsGoalSubmitted] = useState(false);
   const [responses, setResponses] = useState({});
+  const [isReturningUser, setIsReturningUser] = useState(false);
+
+  useEffect(() => {
+    const checkReturningUser = async () => {
+      console.log("Initialisation")
+      try {
+        const storedName = await AsyncStorage.getItem('name');
+        const storedGoals = await AsyncStorage.getItem('selectedGoals');
+        const storedStrengthLevels = await AsyncStorage.getItem('strengthLevels');
+        const storedResponses = await AsyncStorage.getItem('responses');
+
+        if (storedName || storedGoals || storedStrengthLevels || storedResponses) {
+          setName(storedName);
+          setSelectedGoals(JSON.parse(storedGoals));
+          setStrengthLevels(JSON.parse(storedStrengthLevels));
+          setResponses(JSON.parse(storedResponses));
+          setIsReturningUser(true);
+        }
+      } catch (error) {
+        console.log('Error checking user data:', error);
+      }
+    };
+
+    checkReturningUser();
+  }, []);
+
 
   useFocusEffect(
     React.useCallback(() => {
@@ -49,22 +75,6 @@ export default function App() {
       console.log("Error clearing data", error);
     }
   };
-/*
-  const loadData = async () => {
-    const storedGoals = await AsyncStorage.getItem('selectedGoals');
-    const storedStrengthLevels = await AsyncStorage.getItem('strengthLevels');
-    const storedResponses = await AsyncStorage.getItem('responses');
-  
-    if (storedGoals) setSelectedGoals(JSON.parse(storedGoals));
-    else setSelectedGoals([]); // Default to an empty array for new users
-  
-    if (storedStrengthLevels) setStrengthLevels(JSON.parse(storedStrengthLevels));
-    else setStrengthLevels({}); // Default to an empty object for new users
-  
-    if (storedResponses) setResponses(JSON.parse(storedResponses));
-    else setResponses({}); // Default to an empty object for new users
-  };
-  */
 
   useEffect(() => {
     navigation.setOptions({
@@ -76,7 +86,6 @@ export default function App() {
       ),
     });
   
-    //loadData(); // Load data when component mounts
   }, [navigation]);
   
 
@@ -201,7 +210,7 @@ export default function App() {
     },
   };  
 
-  if (!isSubmitted) {
+  if (!isSubmitted  && !isReturningUser) {
     return (
       <KeyboardAvoidingView style={{ flex: 1 }} behavior={Platform.OS === "ios" ? "padding" : "height"}>
         <ScrollView contentContainerStyle={styles.scrollContainer}>
