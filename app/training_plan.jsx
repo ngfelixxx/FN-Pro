@@ -20,6 +20,12 @@ const TrainingPlan = () => {
       // Add other exercises here
     };
 
+    // Ensure exerciseName is valid and exists in videoMap
+    if (!exerciseName || !videoMap[exerciseName]) {
+      console.warn(`No video found for exercise: ${exerciseName}`);
+      return; // Exit the function if no valid video is found
+    }
+
     setVideoSource(videoMap[exerciseName]);
     setModalVisible(true);
   };
@@ -223,6 +229,10 @@ const TrainingPlan = () => {
     );
   }
 
+  const handleStartNewCycle = () => {
+    navigation.navigate('start_new_cycle');
+  };
+
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Training Plan</Text>
@@ -259,10 +269,13 @@ const TrainingPlan = () => {
             ))}
           </View>
         ))}
-        {/* Your start new cycle button code here */}
+        <View style={styles.container}>
+        <TouchableOpacity style={styles.startNewCycleButton} onPress={handleStartNewCycle}>
+          <Text style={styles.startNewCycleButtonText}>Start Next Cycle</Text>
+        </TouchableOpacity>
+      </View>
       </ScrollView>
 
-      {/* Modal for video */}
       <Modal
         visible={modalVisible}
         transparent={true}
@@ -271,15 +284,19 @@ const TrainingPlan = () => {
       >
         <View style={styles.modalContainer}>
           <View style={styles.modalContent}>
-            <Video
-              source={videoSource}
-              rate={1.0}
-              volume={1.0}
-              isMuted={false}
-              resizeMode="cover"
-              shouldPlay
-              style={styles.video}
-            />
+            {videoSource ? (
+              <Video
+                source={videoSource}
+                rate={1.0}
+                volume={1.0}
+                isMuted={false}
+                resizeMode="cover"
+                shouldPlay
+                style={styles.video}
+              />
+            ) : (
+              <Text style={styles.errorMessage}>Video not available</Text>
+            )}
             <TouchableOpacity onPress={() => setModalVisible(false)} style={styles.closeButton}>
               <Text style={styles.closeButtonText}>Close</Text>
             </TouchableOpacity>
@@ -306,7 +323,7 @@ const styles = StyleSheet.create({
   planContainer: {
     padding: 20,
     alignItems: 'center',
-    paddingBottom: 1000,
+    paddingBottom: 1300,
   },
   weekBox: {
     backgroundColor: '#333333',

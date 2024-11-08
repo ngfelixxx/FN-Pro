@@ -26,6 +26,26 @@ export default function StartNewCycle() {
     },
   };
 
+  // Helper function to retrieve data with a fallback to default value
+  const safeGetItem = async (key, defaultValue) => {
+    try {
+      const value = await AsyncStorage.getItem(key);
+      return value !== null ? JSON.parse(value) : defaultValue;
+    } catch (error) {
+      console.error(`Error retrieving key ${key}`, error);
+      return defaultValue;
+    }
+  };
+
+  // Load stored data when component mounts
+  useEffect(() => {
+    (async () => {
+      setSelectedGoals(await safeGetItem('selectedGoals', []));
+      setStrengthLevels(await safeGetItem('strengthLevels', {}));
+      setResponses(await safeGetItem('responses', {}));
+    })();
+  }, []);
+
   const handleGoalSelection = (goal) => {
     setSelectedGoals((prevGoals) =>
       prevGoals.includes(goal) ? prevGoals.filter((g) => g !== goal) : [...prevGoals, goal]

@@ -20,13 +20,13 @@ export default function App() {
   useFocusEffect(
     React.useCallback(() => {
       const fetchData = async () => {
-        // Load updated data from AsyncStorage here
         const goals = await AsyncStorage.getItem('selectedGoals');
         const levels = await AsyncStorage.getItem('strengthLevels');
         const responses = await AsyncStorage.getItem('responses');
-        setSelectedGoals(JSON.parse(goals));
-        setStrengthLevels(JSON.parse(levels));
-        setResponses(JSON.parse(responses));
+        
+        setSelectedGoals(goals ? JSON.parse(goals) : []); // Default to an empty array
+        setStrengthLevels(levels ? JSON.parse(levels) : {}); // Default to an empty object
+        setResponses(responses ? JSON.parse(responses) : {}); // Default to an empty object
       };
   
       fetchData();
@@ -51,27 +51,18 @@ export default function App() {
   };
 
   const loadData = async () => {
-    try {
-      // Retrieve stored data
-      const storedName = await AsyncStorage.getItem('name');
-      const storedGoals = await AsyncStorage.getItem('selectedGoals');
-      const storedStrengthLevels = await AsyncStorage.getItem('strengthLevels');
-      const storedResponses = await AsyncStorage.getItem('responses');
+    const storedGoals = await AsyncStorage.getItem('selectedGoals');
+    const storedStrengthLevels = await AsyncStorage.getItem('strengthLevels');
+    const storedResponses = await AsyncStorage.getItem('responses');
   
-      // Set state with stored data if it exists
-      if (storedName) setName(storedName);
-      if (storedGoals) setSelectedGoals(JSON.parse(storedGoals));
-      if (storedStrengthLevels) setStrengthLevels(JSON.parse(storedStrengthLevels));
-      if (storedResponses) setResponses(JSON.parse(storedResponses));
+    if (storedGoals) setSelectedGoals(JSON.parse(storedGoals));
+    else setSelectedGoals([]); // Default to an empty array for new users
   
-      // Set `isSubmitted` and `isGoalSubmitted` if data exists
-      if (storedName && storedGoals) {
-        setIsSubmitted(true);
-        setIsGoalSubmitted(true);
-      }
-    } catch (error) {
-      console.log("Error loading data", error);
-    }
+    if (storedStrengthLevels) setStrengthLevels(JSON.parse(storedStrengthLevels));
+    else setStrengthLevels({}); // Default to an empty object for new users
+  
+    if (storedResponses) setResponses(JSON.parse(storedResponses));
+    else setResponses({}); // Default to an empty object for new users
   };
 
   useEffect(() => {
