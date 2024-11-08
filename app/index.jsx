@@ -24,9 +24,9 @@ export default function App() {
         const levels = await AsyncStorage.getItem('strengthLevels');
         const responses = await AsyncStorage.getItem('responses');
         
-        setSelectedGoals(goals ? JSON.parse(goals) : []); // Default to an empty array
-        setStrengthLevels(levels ? JSON.parse(levels) : {}); // Default to an empty object
-        setResponses(responses ? JSON.parse(responses) : {}); // Default to an empty object
+        if (goals) setSelectedGoals(JSON.parse(goals));
+        if (levels) setStrengthLevels(JSON.parse(levels));
+        if (responses) setResponses(JSON.parse(responses));
       };
   
       fetchData();
@@ -49,7 +49,7 @@ export default function App() {
       console.log("Error clearing data", error);
     }
   };
-
+/*
   const loadData = async () => {
     const storedGoals = await AsyncStorage.getItem('selectedGoals');
     const storedStrengthLevels = await AsyncStorage.getItem('strengthLevels');
@@ -64,6 +64,7 @@ export default function App() {
     if (storedResponses) setResponses(JSON.parse(storedResponses));
     else setResponses({}); // Default to an empty object for new users
   };
+  */
 
   useEffect(() => {
     navigation.setOptions({
@@ -75,7 +76,7 @@ export default function App() {
       ),
     });
   
-    loadData(); // Load data when component mounts
+    //loadData(); // Load data when component mounts
   }, [navigation]);
   
 
@@ -226,10 +227,13 @@ export default function App() {
             </TouchableOpacity>
 
             <TouchableOpacity
-              style={[styles.goalButton, selectedGoals.includes('Front Lever') && styles.goalButtonSelected]}
+              style={[styles.goalButton, selectedGoals.includes('Front Lever') && styles.goalButtonSelected, 
+                !selectedGoals.includes('Front Lever') && styles.goalButtonDisabled, //Temporary Disbale 
+              ]}
               onPress={() => handleGoalSelection('Front Lever')}
+              disabled={!selectedGoals.includes('Front Lever')}  //Temporary Disable
             >
-              <Text style={styles.goalText}>Front Lever</Text>
+              <Text style={[styles.goalText, selectedGoals.includes('Front Lever') && styles.goalTextDisabled]}>Front Lever</Text> 
             </TouchableOpacity>
 
             <TouchableOpacity style={styles.submitButton} onPress={handleSubmit}>
@@ -421,5 +425,12 @@ const styles = StyleSheet.create({
   },
   goalText: {
     color: '#ffffff', // White text by default
+  },
+  goalButtonDisabled: { //Temporary Disable 
+    backgroundColor: '#555',  // Darker background for the disabled state
+    opacity: 0.6,  // Lower opacity to indicate it's disabled
+  },
+  goalTextDisabled: {
+    color: '#888', // Disabled text color
   },
 });

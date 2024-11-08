@@ -224,13 +224,23 @@ const TrainingPlan = () => {
   if (!trainingPlan.length) {
     return (
       <View style={styles.container}>
-        <Text style={styles.title}>Loading Training Plan...</Text>
+        <Text style={styles.title}>Unable To Load Training Plan</Text>
       </View>
     );
   }
 
-  const handleStartNewCycle = () => {
-    navigation.navigate('start_new_cycle');
+  const handleStartNewCycle = async () => {
+    try {
+      // Set empty default values for AsyncStorage
+      await AsyncStorage.setItem('selectedGoals', JSON.stringify([]));
+      await AsyncStorage.setItem('strengthLevels', JSON.stringify({}));
+      await AsyncStorage.setItem('responses', JSON.stringify({}));
+  
+      // Now navigate to the start new cycle page
+      navigation.navigate('start_new_cycle');
+    } catch (error) {
+      console.error("Error resetting AsyncStorage for new cycle:", error);
+    }
   };
 
   return (
@@ -323,7 +333,7 @@ const styles = StyleSheet.create({
   planContainer: {
     padding: 20,
     alignItems: 'center',
-    paddingBottom: 1300,
+    paddingBottom: 1500,
   },
   weekBox: {
     backgroundColor: '#333333',
