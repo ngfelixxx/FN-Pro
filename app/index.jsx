@@ -262,19 +262,27 @@ export default function App() {
             {selectedGoals.map((goal) => (
               <View key={goal}>
                 <Text style={styles.question}>Select your strength level for {goal}:</Text>
-                {["Beginner", "Intermediate", "Advanced"].map((level) => (
-                  <TouchableOpacity
-                    key={level}
-                    style={[
-                      styles.levelButton,
-                      strengthLevels[goal] === level && styles.levelButtonSelected,
-                    ]}
-                    onPress={() => handleStrengthLevelSelection(goal, level)}
-                  >
-                    <Text style={styles.levelText}>{level}</Text>
-                  </TouchableOpacity>
-                ))}
-
+                {["Beginner", "Intermediate", "Advanced"].map((level) => {
+                  // Condition to disable Intermediate and Advanced levels
+                  const isDisabled = (level === "Intermediate" || level === "Advanced") && strengthLevels[goal] !== level;
+                  
+                  return (
+                    <TouchableOpacity
+                      key={level}
+                      style={[
+                        styles.levelButton,
+                        strengthLevels[goal] === level && styles.levelButtonSelected,
+                        isDisabled && styles.levelButtonDisabled, // Apply disabled style
+                      ]}
+                      onPress={() => !isDisabled && handleStrengthLevelSelection(goal, level)} // Prevent selection if disabled
+                    >
+                      <Text style={[styles.levelText, isDisabled && styles.levelTextDisabled]}>
+                        {level}
+                      </Text>
+                    </TouchableOpacity>
+                  );
+                })}
+  
                 {strengthLevels[goal] &&
                   questions[strengthLevels[goal]][goal].map((question, index) => (
                     <View key={`${goal}-${index}`}>
@@ -291,7 +299,7 @@ export default function App() {
                   ))}
               </View>
             ))}
-
+  
             <TouchableOpacity style={styles.submitButton} onPress={handleGoalSubmit}>
               <Text style={styles.submitButtonText}>Save Goal Info</Text>
             </TouchableOpacity>
@@ -299,7 +307,7 @@ export default function App() {
         </ScrollView>
       </KeyboardAvoidingView>
     );
-  }
+  };  
 
   return (
     <View style={styles.container}>
@@ -436,10 +444,19 @@ const styles = StyleSheet.create({
     color: '#ffffff', // White text by default
   },
   goalButtonDisabled: { //Temporary Disable 
-    backgroundColor: '#555',  // Darker background for the disabled state
-    opacity: 0.6,  // Lower opacity to indicate it's disabled
+    //backgroundColor: '#555',  // Darker background for the disabled state
+    //opacity: 0.6,  // Lower opacity to indicate it's disabled
+    backgroundColor: "#ccc", // Gray background for disabled state
+    opacity: 0.5, // Reduced opacity for disabled appearance
   },
   goalTextDisabled: {
-    color: '#888', // Disabled text color
+    color: '#ffffff', // Disabled text color
+  },
+  levelButtonDisabled: {
+    backgroundColor: "#ccc", // Gray background for disabled state
+    opacity: 0.5, // Reduced opacity for disabled appearance
+  },
+  levelTextDisabled: {
+    color: "#ffffff", // Lighter color for the disabled text
   },
 });
