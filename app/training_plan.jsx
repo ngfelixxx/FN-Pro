@@ -17,8 +17,20 @@ const TrainingPlan = () => {
     // Assuming you have a mapping of exercise names to video files
     const videoMap = {
       "Warm-Up: Shoulder Dislocates": require('../assets/videos/Shoulder Dislocates.mp4'),
-      // Add other exercises here
-    };
+      "Activation: Regular Push-Ups": require('../assets/videos/Regular Push-Ups.mp4'),
+      "Skill Development: Regular Dips": require('../assets/videos/Regular Dips.mp4'),
+      "Skill Development: Pseudo Planche Leans On Knees": require('../assets/videos/Pseudo Planche Leans On Knees.mp4'),
+      "Resistance Training: Straight Arm Band Flies": require('../assets/videos/Straight Arm Band Flies.mp4'),
+      "Cool Down: Horizontal Retractive Scapula Pull Up": require('../assets/videos/Retractive Scapula Pull Up.mp4'),
+      "Activation: Explosive Pseudo Push-Ups on Knees": require('../assets/videos/Explosive Pseudo Push-Ups on Knees.mp4'),
+      "Skill Development: Pseudo Planche Leans": require('../assets/videos/Pseudo Planche Leans.mp4'),
+      "Skill Development: Swing to Tuck Planche Support": require('../assets/videos/Swing to Tuck Planche Support.mp4'),
+      "Skill Development: Banded Tuck Planche Hold": require('../assets/videos/Banded Tuck Planche Hold.mp4'),
+      "Skill Development: Pseudo Planche Push-Ups": require('../assets/videos/Pseudo Planche Push-Ups.mp4'),
+      "Skill Development: Advanced Tuck Planche Holds": require('../assets/videos/Advanced Tuck Planche Holds.mp4'),
+      //"Skill Development: Tuck Planche Hold": require('../assets/videos/Tuck Planche Hold.mp4'),
+      "Skill Development: Band Assisted Tuck Planche Push-Ups": require('../assets/videos/Band Assisted Tuck Planche Push-Ups.mp4'),
+    };    
 
     // Ensure exerciseName is valid and exists in videoMap
     if (!exerciseName || !videoMap[exerciseName]) {
