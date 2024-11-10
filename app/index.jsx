@@ -39,27 +39,29 @@ export default function App() {
 
   useEffect(() => {
     const checkReturningUser = async () => {
-      console.log("Initialisation")
       try {
-        const storedName = await AsyncStorage.getItem('name');
-        const storedGoals = await AsyncStorage.getItem('selectedGoals');
-        const storedStrengthLevels = await AsyncStorage.getItem('strengthLevels');
-        const storedResponses = await AsyncStorage.getItem('responses');
-
-        if (storedName || storedGoals || storedStrengthLevels || storedResponses) {
-          setName(storedName);
-          setSelectedGoals(JSON.parse(storedGoals));
-          setStrengthLevels(JSON.parse(storedStrengthLevels));
-          setResponses(JSON.parse(storedResponses));
-          setIsReturningUser(true);
-        }
+        // Attempt to retrieve values from AsyncStorage
+        const storedName = await AsyncStorage.getItem('name') ?? '';
+        const storedGoals = await AsyncStorage.getItem('selectedGoals') ?? JSON.stringify([]);
+        const storedStrengthLevels = await AsyncStorage.getItem('strengthLevels') ?? JSON.stringify({});
+        const storedResponses = await AsyncStorage.getItem('responses') ?? JSON.stringify({});
+  
+        // Parse and set state with placeholders if necessary
+        setName(storedName);
+        setSelectedGoals(JSON.parse(storedGoals));
+        setStrengthLevels(JSON.parse(storedStrengthLevels));
+        setResponses(JSON.parse(storedResponses));
+  
+        // Set returning user status based on name
+        setIsReturningUser(!!storedName);
+  
       } catch (error) {
-        console.log('Error checking user data:', error);
+        console.error('Error retrieving AsyncStorage data:', error);
       }
     };
-
+  
     checkReturningUser();
-  }, []);
+  }, []);  
 
 
   useFocusEffect(
