@@ -31,7 +31,7 @@ export default function App() {
     // Check if video exists in the map
     if (videoMap[questionText]) {
       setVideoSource(videoMap[questionText]);
-      setModalVisible(true);
+      //setModalVisible(true);
     } else {
       console.warn(`No video found for question: ${questionText}`);
     }
