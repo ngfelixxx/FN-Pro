@@ -123,41 +123,64 @@ const handleSubmit = async () => {
 };
   
 
-  if (!isSubmitted) {
+if (!isSubmitted) {
     return (
       <KeyboardAvoidingView style={{ flex: 1 }} behavior={Platform.OS === "ios" ? "padding" : "height"}>
         <ScrollView contentContainerStyle={styles.scrollContainer}>
           <View style={styles.container}>
             <Text style={styles.title}>Start New Cycle</Text>
-
+  
             <Text style={styles.question}>What are your goals?</Text>
             <TouchableOpacity
-              style={[styles.goalButton, selectedGoals.includes('Planche') && styles.goalButtonSelected]}
+              style={[
+                styles.goalButton,
+                selectedGoals.includes('Planche') && styles.goalButtonSelected
+              ]}
               onPress={() => handleGoalSelection('Planche')}
             >
               <Text style={styles.goalText}>Planche</Text>
             </TouchableOpacity>
-
+  
             <TouchableOpacity
-              style={[styles.goalButton, selectedGoals.includes('Front Lever') && styles.goalButtonSelected]}
+              style={[
+                styles.goalButton,
+                selectedGoals.includes('Front Lever') && styles.goalButtonSelected,
+                !selectedGoals.includes('Front Lever') && styles.goalButtonDisabled, // Disable Front Lever if not selected
+              ]}
               onPress={() => handleGoalSelection('Front Lever')}
+              disabled={!selectedGoals.includes('Front Lever')} // Disable Front Lever button if not selected
             >
-              <Text style={styles.goalText}>Front Lever</Text>
+              <Text style={[
+                styles.goalText,
+                !selectedGoals.includes('Front Lever') && styles.goalTextDisabled, // Apply disabled text style
+              ]}>Front Lever</Text>
             </TouchableOpacity>
-
+  
             {selectedGoals.map((goal) => (
               <View key={goal}>
                 <Text style={styles.question}>Select your strength level for {goal}:</Text>
-                {["Beginner", "Intermediate", "Advanced"].map((level) => (
-                  <TouchableOpacity
-                    key={level}
-                    style={[styles.levelButton, strengthLevels[goal] === level && styles.levelButtonSelected]}
-                    onPress={() => handleStrengthLevelSelection(goal, level)}
-                  >
-                    <Text style={styles.levelText}>{level}</Text>
-                  </TouchableOpacity>
-                ))}
-
+                {["Beginner", "Intermediate", "Advanced"].map((level) => {
+                  // Disable Intermediate and Advanced if Beginner is selected
+                  const isDisabled = (level !== "Beginner" && !strengthLevels[goal]) || 
+                                     (strengthLevels[goal] === "Beginner" && level !== "Beginner");
+                  return (
+                    <TouchableOpacity
+                      key={level}
+                      style={[
+                        styles.levelButton,
+                        strengthLevels[goal] === level && styles.levelButtonSelected,
+                        isDisabled && styles.levelButtonDisabled, // Apply disabled style
+                      ]}
+                      onPress={() => !isDisabled && handleStrengthLevelSelection(goal, level)}
+                    >
+                      <Text style={[
+                        styles.levelText,
+                        isDisabled && styles.levelTextDisabled, // Apply disabled text style
+                      ]}>{level}</Text>
+                    </TouchableOpacity>
+                  );
+                })}
+  
                 {strengthLevels[goal] &&
                   questions[strengthLevels[goal]][goal].map((question, index) => (
                     <View key={`${goal}-${index}`}>
@@ -174,7 +197,7 @@ const handleSubmit = async () => {
                   ))}
               </View>
             ))}
-
+  
             <TouchableOpacity style={styles.submitButton} onPress={handleSubmit}>
               <Text style={styles.submitButtonText}>Save Goal Info</Text>
             </TouchableOpacity>
@@ -183,8 +206,8 @@ const handleSubmit = async () => {
       </KeyboardAvoidingView>
     );
   }
-
-  return null;
+  
+  return null;  
 }
 
 const styles = StyleSheet.create({
@@ -292,5 +315,19 @@ const styles = StyleSheet.create({
       fontSize: 18,
       fontWeight: 'bold',
     },
+    goalButtonDisabled: { 
+        backgroundColor: "#ccc", // Gray background for disabled state
+        opacity: 0.5, // Reduced opacity for disabled appearance
+    },
+    goalTextDisabled: {
+    color: '#ffffff', // Disabled text color
+    },
+    levelButtonDisabled: {
+    backgroundColor: "#ccc", // Gray background for disabled state
+    opacity: 0.5, // Reduced opacity for disabled appearance
+    },
+    levelTextDisabled: {
+    color: "#ffffff", // Lighter color for the disabled text
+    },      
   });
   
