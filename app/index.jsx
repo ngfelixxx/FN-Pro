@@ -284,22 +284,23 @@ export default function App() {
               <View key={goal}>
                 <Text style={styles.question}>Select your strength level for {goal}:</Text>
                 {["Beginner", "Intermediate", "Advanced"].map((level) => {
-                  // Disable Intermediate and Advanced levels conditionally
-                  const isDisabled = level !== "Beginner" && !strengthLevels[goal];
-                  return (
-                    <TouchableOpacity
-                      key={level}
-                      style={[
-                        styles.levelButton,
-                        strengthLevels[goal] === level && styles.levelButtonSelected,
-                        isDisabled && styles.levelButtonDisabled,
-                      ]}
-                      onPress={() => !isDisabled && handleStrengthLevelSelection(goal, level)}
-                    >
-                      <Text style={[styles.levelText, isDisabled && styles.levelTextDisabled]}>{level}</Text>
-                    </TouchableOpacity>
-                  );
-                })}
+                // Keep Intermediate and Advanced disabled if Beginner is selected
+                const isDisabled = (level !== "Beginner" && !strengthLevels[goal]) || 
+                                  (strengthLevels[goal] === "Beginner" && level !== "Beginner");
+                return (
+                  <TouchableOpacity
+                    key={level}
+                    style={[
+                      styles.levelButton,
+                      strengthLevels[goal] === level && styles.levelButtonSelected,
+                      isDisabled && styles.levelButtonDisabled,
+                    ]}
+                    onPress={() => !isDisabled && handleStrengthLevelSelection(goal, level)}
+                  >
+                    <Text style={[styles.levelText, isDisabled && styles.levelTextDisabled]}>{level}</Text>
+                  </TouchableOpacity>
+                );
+              })}
     
                 {strengthLevels[goal] &&
                   questions[strengthLevels[goal]][goal].map((question, index) => (
