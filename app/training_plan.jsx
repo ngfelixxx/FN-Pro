@@ -25,10 +25,10 @@ const TrainingPlan = () => {
       "Activation: Explosive Pseudo Push-Ups on Knees": require('../assets/videos/Explosive Pseudo Push-Ups on Knees.mp4'),
       "Skill Development: Pseudo Planche Leans": require('../assets/videos/Pseudo Planche Leans.mp4'),
       "Skill Development: Swing to Tuck Planche Support": require('../assets/videos/Swing to Tuck Planche Support.mp4'),
-      "Skill Development: Band Assisted Tuck Planche Hold": require('../assets/videos/Banded Tuck Planche Hold.mp4'),
+      "Skill Development: Band Assisted Tuck Planche Hold": require('../assets/videos/Band Assisted Tuck Planche Hold.mp4'),
       "Skill Development: Pseudo Planche Push-Ups": require('../assets/videos/Pseudo Planche Push-Ups.mp4'),
       "Skill Development: Advanced Tuck Planche Holds": require('../assets/videos/Advanced Tuck Planche Holds.mp4'),
-      //"Skill Development: Tuck Planche Hold": require('../assets/videos/Tuck Planche Hold.mp4'),
+      "Skill Development: Tuck Planche Hold": require('../assets/videos/Tuck Planche Hold.mp4'),
       "Skill Development: Band Assisted Tuck Planche Push-Ups": require('../assets/videos/Band Assisted Tuck Planche Push-Ups.mp4'),
     };    
 
