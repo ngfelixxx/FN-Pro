@@ -305,9 +305,13 @@ export default function App() {
                             resizeMode="cover"
                             shouldPlay={true} // Start playing automatically
                             style={styles.video}
+                            isLooping={true} 
                             onPlaybackStatusUpdate={(status) => {
+                              //console.log("Playback Status:", status);
                               if (status.finished) {
-                                videoRef.current.playAsync(); // Replay the video
+                                setTimeout(() => {
+                                  videoRef.current?.playAsync();
+                                }, 100); // Add a short delay
                               }
                             }}
                           />
