@@ -11,24 +11,6 @@ export default function StartNewCycle() {
   const [strengthLevels, setStrengthLevels] = useState({});
   const [responses, setResponses] = useState({});
   const [isSubmitted, setIsSubmitted] = useState(false);
-  const [modalVisible, setModalVisible] = useState(false);
-  const [videoSource, setVideoSource] = useState(null);
-
-  const openVideoModal = (questionText) => {
-    const videoMap = {
-      "How many Pseudo Planche Push-Ups can you do?": require('../assets/videos/Pseudo Planche Push-Ups.mp4'),
-      "How long can you hold the Pseudo Planche Lean?(seconds)": require('../assets/videos/Pseudo Planche Leans.mp4'),
-      // Add other questions and corresponding video sources here
-    };
-
-    // Check if video exists in the map
-    if (videoMap[questionText]) {
-      setVideoSource(videoMap[questionText]);
-      //setModalVisible(true);
-    } else {
-      console.warn(`No video found for question: ${questionText}`);
-    }
-  };
 
   const questions = {
     Beginner: {
@@ -229,33 +211,6 @@ if (!isSubmitted) {
               <Text style={styles.submitButtonText}>Save Goal Info</Text>
             </TouchableOpacity>
           </View>
-          <Modal
-            visible={modalVisible}
-            transparent={true}
-            animationType="slide"
-            onRequestClose={() => setModalVisible(false)}
-          >
-            <View style={styles.modalContainer}>
-              <View style={styles.modalContent}>
-                {videoSource ? (
-                  <Video
-                    source={videoSource}
-                    rate={1.0}
-                    volume={1.0}
-                    isMuted={false}
-                    resizeMode="cover"
-                    shouldPlay
-                    style={styles.video}
-                  />
-                ) : (
-                  <Text style={styles.errorMessage}>Video not available</Text>
-                )}
-                <TouchableOpacity onPress={() => setModalVisible(false)} style={styles.closeButton}>
-                  <Text style={styles.closeButtonText}>Close</Text>
-                </TouchableOpacity>
-              </View>
-            </View>
-          </Modal>
         </ScrollView>
       </KeyboardAvoidingView>
     );
@@ -383,26 +338,5 @@ const styles = StyleSheet.create({
     levelTextDisabled: {
     color: "#ffffff", // Lighter color for the disabled text
     },      
-    questionContainer: {
-      marginBottom: 16,
-    },
-    questionHeader: {
-      flexDirection: 'row',
-      alignItems: 'center',
-    },
-    questionMarkButton: {
-      marginLeft: 8,
-      backgroundColor: '#00bfff',
-      width: 20,
-      height: 20,
-      borderRadius: 10,
-      justifyContent: 'center',
-      alignItems: 'center',
-    },
-    questionMark: {
-      color: '#fff',
-      fontSize: 12,
-      fontWeight: 'bold',
-    },  
   });
   

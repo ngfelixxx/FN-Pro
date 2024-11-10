@@ -1,6 +1,6 @@
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View, TextInput, TouchableOpacity, ScrollView, KeyboardAvoidingView, Platform, Modal } from 'react-native';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { useNavigation } from '@react-navigation/native';
 import { useRouter } from 'expo-router';
 import AsyncStorage from '@react-native-async-storage/async-storage';   
@@ -18,23 +18,12 @@ export default function App() {
   const [isGoalSubmitted, setIsGoalSubmitted] = useState(false);
   const [responses, setResponses] = useState({});
   const [isReturningUser, setIsReturningUser] = useState(false);
-  const [modalVisible, setModalVisible] = useState(false);
-  const [videoSource, setVideoSource] = useState(null);
+  const videoRef = useRef(null);
 
-  const openVideoModal = (questionText) => {
-    const videoMap = {
-      "How many Pseudo Planche Push-Ups can you do?": require('../assets/videos/Pseudo Planche Push-Ups.mp4'),
-      "How long can you hold the Pseudo Planche Lean?(seconds)": require('../assets/videos/Pseudo Planche Leans.mp4'),
-      // Add other questions and corresponding video sources here
-    };
-
-    // Check if video exists in the map
-    if (videoMap[questionText]) {
-      setVideoSource(videoMap[questionText]);
-      //setModalVisible(true);
-    } else {
-      console.warn(`No video found for question: ${questionText}`);
-    }
+  const videoMap = {
+    "How many Pseudo Planche Push-Ups can you do?": require('../assets/videos/Pseudo Planche Push-Ups.mp4'), // Replace with your video source path
+    "How long can you hold the Pseudo Planche Lean?(seconds)": require('../assets/videos/Pseudo Planche Leans.mp4'), // Replace with your video source path
+    // ... Add more mappings for other questions
   };
 
   useEffect(() => {
@@ -302,64 +291,44 @@ export default function App() {
                 );
               })}
     
-                {strengthLevels[goal] &&
-                  questions[strengthLevels[goal]][goal].map((question, index) => (
-                    <View key={`${goal}-${index}`} style={styles.questionContainer}>
-                      <View style={styles.questionHeader}>
+              {strengthLevels[goal] &&
+                    questions[strengthLevels[goal]][goal].map((question, index) => (
+                      <View key={`${goal}-${index}`} style={styles.questionContainer}>
                         <Text style={styles.question}>{question}</Text>
-                        <TouchableOpacity
-                          onPress={() => openVideoModal(question)}
-                          style={styles.questionMarkButton}
-                        >
-                          <Text style={styles.questionMark}>?</Text>
-                        </TouchableOpacity>
+                        {videoMap[question] && ( // Check if video exists for the question
+                            <Video
+                            ref={videoRef}
+                            source={videoMap[question]}
+                            rate={1.0}
+                            volume={1.0}
+                            isMuted={false}
+                            resizeMode="cover"
+                            shouldPlay={true} // Start playing automatically
+                            style={styles.video}
+                            onPlaybackStatusUpdate={(status) => {
+                              if (status.finished) {
+                                videoRef.current.playAsync(); // Replay the video
+                              }
+                            }}
+                          />
+                        )}
+                        <TextInput
+                          style={styles.input}
+                          placeholder="Enter your response"
+                          placeholderTextColor="#888"
+                          keyboardType="numeric"
+                          onChangeText={(text) => handleResponseChange(goal, index, text)}
+                          value={responses[`${goal}-${strengthLevels[goal]}-${index}`]}
+                        />
                       </View>
-                      <TextInput
-                        style={styles.input}
-                        placeholder="Enter your response"
-                        placeholderTextColor="#888"
-                        keyboardType="numeric"
-                        onChangeText={(text) => handleResponseChange(goal, index, text)}
-                        value={responses[`${goal}-${strengthLevels[goal]}-${index}`]}
-                      />
-                    </View>
-                  ))}
-              </View>
-            ))}
+                    ))}
+                </View>
+              ))}
     
             <TouchableOpacity style={styles.submitButton} onPress={handleGoalSubmit}>
               <Text style={styles.submitButtonText}>Save Goal Info</Text>
             </TouchableOpacity>
           </View>
-    
-          {/* Video Modal */}
-          <Modal
-            visible={modalVisible}
-            transparent={true}
-            animationType="slide"
-            onRequestClose={() => setModalVisible(false)}
-          >
-            <View style={styles.modalContainer}>
-              <View style={styles.modalContent}>
-                {videoSource ? (
-                  <Video
-                    source={videoSource}
-                    rate={1.0}
-                    volume={1.0}
-                    isMuted={false}
-                    resizeMode="cover"
-                    shouldPlay
-                    style={styles.video}
-                  />
-                ) : (
-                  <Text style={styles.errorMessage}>Video not available</Text>
-                )}
-                <TouchableOpacity onPress={() => setModalVisible(false)} style={styles.closeButton}>
-                  <Text style={styles.closeButtonText}>Close</Text>
-                </TouchableOpacity>
-              </View>
-            </View>
-          </Modal>
         </ScrollView>
       </KeyboardAvoidingView>
     );    
@@ -515,25 +484,9 @@ const styles = StyleSheet.create({
   levelTextDisabled: {
     color: "#ffffff", // Lighter color for the disabled text
   },
-  questionContainer: {
-    marginBottom: 16,
+  video: {
+    width: '100%', // Adjust width and height as needed
+    aspectRatio: 16 / 9, // Maintain aspect ratio for video
+    marginBottom: 10, // Add spacing after the video
   },
-  questionHeader: {
-    flexDirection: 'row',
-    alignItems: 'center',
-  },
-  questionMarkButton: {
-    marginLeft: 8,
-    backgroundColor: '#00bfff',
-    width: 20,
-    height: 20,
-    borderRadius: 10,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  questionMark: {
-    color: '#fff',
-    fontSize: 12,
-    fontWeight: 'bold',
-  },  
 });
