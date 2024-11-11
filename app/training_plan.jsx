@@ -15,20 +15,20 @@ const TrainingPlan = () => {
 
   const openImageModal = (exerciseName) => {
     const imageMap = {
-      "Warm-Up: Shoulder Dislocates": require('../assets/images/Shoulder Dislocates.png'),
-      "Activation: Regular Push-Ups": require('../assets/images/Regular Push-Ups.png'),
-      "Skill Development: Regular Dips": require('../assets/images/Regular Dips.png'),
-      "Skill Development: Pseudo Planche Leans On Knees": require('../assets/images/Pseudo Planche Leans On Knees.png'),
-      "Resistance Training: Straight Arm Band Flies": require('../assets/images/Straight Arm Band Flies.png'),
-      "Cool Down: Horizontal Retractive Scapula Pull Up": require('../assets/images/Horizontal Retractive Scapula Pull Up.png'),
-      "Activation: Explosive Pseudo Push-Ups on Knees": require('../assets/images/Explosive Pseudo Push-Ups on Knees.png'),
-      "Skill Development: Pseudo Planche Leans": require('../assets/images/Pseudo Planche Leans.png'),
-      "Skill Development: Swing to Tuck Planche Support": require('../assets/images/Swing to Tuck Planche Support.png'),
-      "Skill Development: Band Assisted Tuck Planche Hold": require('../assets/images/Band Assisted Tuck Planche Hold.png'),
-      "Skill Development: Pseudo Planche Push-Ups": require('../assets/images/Pseudo Planche Push-Ups.png'),
-      "Skill Development: Advanced Tuck Planche Holds": require('../assets/images/Advanced Tuck Planche Holds.png'),
-      "Skill Development: Tuck Planche Hold": require('../assets/images/Tuck Planche Hold.png'),
-      "Skill Development: Band Assisted Tuck Planche Push-Ups": require('../assets/images/Band Assisted Tuck Planche Push-Ups.png'),
+      "Warm-Up: Shoulder Dislocates": require('../assets/images/Shoulder_Dislocates.png'),
+      "Activation: Regular Push-Ups": require('../assets/images/Regular_Push_Ups.png'),
+      "Skill Development: Regular Dips": require('../assets/images/Regular_Dips.png'),
+      "Skill Development: Pseudo Planche Leans On Knees": require('../assets/images/Pseudo_Planche_Leans_On_Knees.png'),
+      "Resistance Training: Straight Arm Band Flies": require('../assets/images/Straight_Arm_Band_Flies.png'),
+      "Cool Down: Horizontal Retractive Scapula Pull Up": require('../assets/images/Horizontal_Retractive_Scapula_Pull_Up.png'),
+      "Activation: Explosive Pseudo Push-Ups on Knees": require('../assets/images/Explosive_Pseudo_Push_Ups_on_Knees.png'),
+      "Skill Development: Pseudo Planche Leans": require('../assets/images/Pseudo_Planche_Leans.png'),
+      "Skill Development: Swing to Tuck Planche Support": require('../assets/images/Swing_to_Tuck_Planche_Support.png'),
+      "Skill Development: Band Assisted Tuck Planche Hold": require('../assets/images/Band_Assisted_Tuck_Planche_Hold.png'),
+      "Skill Development: Pseudo Planche Push-Ups": require('../assets/images/Pseudo_Planche_Push_Ups.png'),
+      "Skill Development: Advanced Tuck Planche Holds": require('../assets/images/Advanced_Tuck_Planche_Holds.png'),
+      "Skill Development: Tuck Planche Hold": require('../assets/images/Tuck_Planche_Hold.png'),
+      "Skill Development: Band Assisted Tuck Planche Push-Ups": require('../assets/images/Band_Assisted_Tuck_Planche_Push_Ups.png'),
     };
   
     if (!exerciseName || !imageMap[exerciseName]) {

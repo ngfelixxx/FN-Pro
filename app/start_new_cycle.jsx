@@ -13,8 +13,8 @@ export default function StartNewCycle() {
   const [isSubmitted, setIsSubmitted] = useState(false);
 
   const imageMap = {
-    "How many Pseudo Planche Push-Ups can you do?": require('../assets/images/Pseudo Planche Push-Ups.png'),
-    "How long can you hold the Pseudo Planche Lean?(seconds)": require('../assets/images/Pseudo Planche Leans.png'),
+    "How many Pseudo Planche Push-Ups can you do?": require('../assets/images/Pseudo_Planche_Push_Ups.png'),
+    "How long can you hold the Pseudo Planche Lean?(seconds)": require('../assets/images/Pseudo_Planche_Leans.png'),
     // Add more mappings for other questions
   };
 
