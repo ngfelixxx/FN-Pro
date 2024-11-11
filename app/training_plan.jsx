@@ -3,7 +3,7 @@ import { StyleSheet, Text, View, ScrollView, TouchableOpacity, Modal } from 'rea
 import { useLocalSearchParams } from 'expo-router';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useNavigation } from '@react-navigation/native';
-import { Video } from 'expo-av';
+import { Image } from 'react-native';
 
 const TrainingPlan = () => {
   const { strengthLevel, goal, responses } = useLocalSearchParams();
@@ -11,36 +11,34 @@ const TrainingPlan = () => {
   const [completedDays, setCompletedDays] = useState({}); // Track completed days
   const navigation = useNavigation();
   const [modalVisible, setModalVisible] = useState(false);
-  const [videoSource, setVideoSource] = useState(null);
+  const [imageSource, setImageSource] = useState(null); 
 
-  const openVideoModal = (exerciseName) => {
-    // Assuming you have a mapping of exercise names to video files
-    const videoMap = {
-      "Warm-Up: Shoulder Dislocates": require('../assets/videos/Shoulder Dislocates.mp4'),
-      "Activation: Regular Push-Ups": require('../assets/videos/Regular Push-Ups.mp4'),
-      "Skill Development: Regular Dips": require('../assets/videos/Regular Dips.mp4'),
-      "Skill Development: Pseudo Planche Leans On Knees": require('../assets/videos/Pseudo Planche Leans On Knees.mp4'),
-      "Resistance Training: Straight Arm Band Flies": require('../assets/videos/Straight Arm Band Flies.mp4'),
-      "Cool Down: Horizontal Retractive Scapula Pull Up": require('../assets/videos/Retractive Scapula Pull Up.mp4'),
-      "Activation: Explosive Pseudo Push-Ups on Knees": require('../assets/videos/Explosive Pseudo Push-Ups on Knees.mp4'),
-      "Skill Development: Pseudo Planche Leans": require('../assets/videos/Pseudo Planche Leans.mp4'),
-      "Skill Development: Swing to Tuck Planche Support": require('../assets/videos/Swing to Tuck Planche Support.mp4'),
-      "Skill Development: Band Assisted Tuck Planche Hold": require('../assets/videos/Band Assisted Tuck Planche Hold.mp4'),
-      "Skill Development: Pseudo Planche Push-Ups": require('../assets/videos/Pseudo Planche Push-Ups.mp4'),
-      "Skill Development: Advanced Tuck Planche Holds": require('../assets/videos/Advanced Tuck Planche Holds.mp4'),
-      "Skill Development: Tuck Planche Hold": require('../assets/videos/Tuck Planche Hold.mp4'),
-      "Skill Development: Band Assisted Tuck Planche Push-Ups": require('../assets/videos/Band Assisted Tuck Planche Push-Ups.mp4'),
-    };    
-
-    // Ensure exerciseName is valid and exists in videoMap
-    if (!exerciseName || !videoMap[exerciseName]) {
-      console.warn(`No video found for exercise: ${exerciseName}`);
-      return; // Exit the function if no valid video is found
+  const openImageModal = (exerciseName) => {
+    const imageMap = {
+      "Warm-Up: Shoulder Dislocates": require('../assets/images/Shoulder Dislocates.png'),
+      "Activation: Regular Push-Ups": require('../assets/images/Regular Push-Ups.png'),
+      "Skill Development: Regular Dips": require('../assets/images/Regular Dips.png'),
+      "Skill Development: Pseudo Planche Leans On Knees": require('../assets/images/Pseudo Planche Leans On Knees.png'),
+      "Resistance Training: Straight Arm Band Flies": require('../assets/images/Straight Arm Band Flies.png'),
+      "Cool Down: Horizontal Retractive Scapula Pull Up": require('../assets/images/Horizontal Retractive Scapula Pull Up.png'),
+      "Activation: Explosive Pseudo Push-Ups on Knees": require('../assets/images/Explosive Pseudo Push-Ups on Knees.png'),
+      "Skill Development: Pseudo Planche Leans": require('../assets/images/Pseudo Planche Leans.png'),
+      "Skill Development: Swing to Tuck Planche Support": require('../assets/images/Swing to Tuck Planche Support.png'),
+      "Skill Development: Band Assisted Tuck Planche Hold": require('../assets/images/Band Assisted Tuck Planche Hold.png'),
+      "Skill Development: Pseudo Planche Push-Ups": require('../assets/images/Pseudo Planche Push-Ups.png'),
+      "Skill Development: Advanced Tuck Planche Holds": require('../assets/images/Advanced Tuck Planche Holds.png'),
+      "Skill Development: Tuck Planche Hold": require('../assets/images/Tuck Planche Hold.png'),
+      "Skill Development: Band Assisted Tuck Planche Push-Ups": require('../assets/images/Band Assisted Tuck Planche Push-Ups.png'),
+    };
+  
+    if (!exerciseName || !imageMap[exerciseName]) {
+      console.warn(`No image found for exercise: ${exerciseName}`);
+      return;
     }
-
-    setVideoSource(videoMap[exerciseName]);
+  
+    setImageSource(imageMap[exerciseName]);
     setModalVisible(true);
-  };
+  };  
 
   useEffect(() => {
     const fetchCompletedDays = async () => {
@@ -278,7 +276,7 @@ const TrainingPlan = () => {
                   <View key={exIndex} style={styles.exerciseBox}>
                     <View style={styles.exerciseHeader}>
                       <Text style={styles.exerciseName}>{exercise.name}</Text>
-                      <TouchableOpacity onPress={() => openVideoModal(exercise.name)} style={styles.questionMarkButton}>
+                      <TouchableOpacity onPress={() => openImageModal(exercise.name)} style={styles.questionMarkButton}>
                         <Text style={styles.questionMark}>?</Text>
                       </TouchableOpacity>
                     </View>
@@ -298,33 +296,28 @@ const TrainingPlan = () => {
       </View>
       </ScrollView>
 
-      <Modal
-        visible={modalVisible}
-        transparent={true}
-        animationType="slide"
-        onRequestClose={() => setModalVisible(false)}
-      >
-        <View style={styles.modalContainer}>
-          <View style={styles.modalContent}>
-            {videoSource ? (
-              <Video
-                source={videoSource}
-                rate={1.0}
-                volume={1.0}
-                isMuted={false}
-                resizeMode="cover"
-                shouldPlay
-                style={styles.video}
-              />
-            ) : (
-              <Text style={styles.errorMessage}>Video not available</Text>
-            )}
-            <TouchableOpacity onPress={() => setModalVisible(false)} style={styles.closeButton}>
-              <Text style={styles.closeButtonText}>Close</Text>
-            </TouchableOpacity>
+        <Modal
+          visible={modalVisible}
+          transparent={true}
+          animationType="slide"
+          onRequestClose={() => setModalVisible(false)}
+        >
+          <View style={styles.modalContainer}>
+            <View style={styles.modalContent}>
+              {imageSource ? (
+                <Image
+                  source={imageSource}
+                  style={styles.modalImage}
+                />
+              ) : (
+                <Text style={styles.errorMessage}>Image not available</Text>
+              )}
+              <TouchableOpacity onPress={() => setModalVisible(false)} style={styles.closeButton}>
+                <Text style={styles.closeButtonText}>Close</Text>
+              </TouchableOpacity>
+            </View>
           </View>
-        </View>
-      </Modal>
+        </Modal>
     </View>
   );
 };
@@ -421,7 +414,7 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     alignItems: 'center',
   },
-  video: {
+  modalImage: {
     width: '100%',
     height: 200,
   },
