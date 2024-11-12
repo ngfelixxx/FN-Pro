@@ -59,10 +59,14 @@ export default function App() {
         const goals = await AsyncStorage.getItem('selectedGoals');
         const levels = await AsyncStorage.getItem('strengthLevels');
         const responses = await AsyncStorage.getItem('responses');
+        const submitted = await AsyncStorage.getItem('isSubmitted');
+        const returningUser = await AsyncStorage.getItem('isReturningUser');
         
         if (goals) setSelectedGoals(JSON.parse(goals));
         if (levels) setStrengthLevels(JSON.parse(levels));
         if (responses) setResponses(JSON.parse(responses));
+        if (submitted) setIsSubmitted(true);
+        if (returningUser) setIsReturningUser(true);
       };
   
       fetchData();
@@ -81,6 +85,8 @@ export default function App() {
       setResponses({});
       setIsSubmitted(false);
       setIsGoalSubmitted(false);
+      setIsSubmitted(false);
+      setIsReturningUser(false);
     } catch (error) {
       console.log("Error clearing data", error);
     }
@@ -123,6 +129,12 @@ export default function App() {
   };
 
   const handleSubmit = async () => {
+    setIsSubmitted(true);
+    setIsReturningUser(true);
+
+    await AsyncStorage.setItem('isSubmitted', 'true');
+    await AsyncStorage.setItem('isReturningUser', 'true');
+
     if (name) {
       setIsSubmitted(true);
     } else {
