@@ -18,7 +18,6 @@ export default function App() {
   const [isGoalSubmitted, setIsGoalSubmitted] = useState(false);
   const [responses, setResponses] = useState({});
   const [isReturningUser, setIsReturningUser] = useState(false);
-  const videoRef = useRef(null);
 
   const imageMap = {
     "How many Pseudo Planche Push-Ups can you do?": require('../assets/images/Pseudo_Planche_Push_Ups.png'),
@@ -42,7 +41,12 @@ export default function App() {
         setResponses(JSON.parse(storedResponses));
   
         // Set returning user status based on name
-        setIsReturningUser(!!storedName);
+        if (storedName && storedGoals && storedStrengthLevels && storedResponses && 
+          JSON.parse(storedGoals).length > 0 && 
+          Object.keys(JSON.parse(storedStrengthLevels)).length > 0 && 
+          Object.keys(JSON.parse(storedResponses)).length > 0) {
+            setIsReturningUser(true);
+          }
   
       } catch (error) {
         console.error('Error retrieving AsyncStorage data:', error);
@@ -130,19 +134,21 @@ export default function App() {
 
   const handleSubmit = async () => {
     setIsSubmitted(true);
-    setIsReturningUser(true);
 
     await AsyncStorage.setItem('isSubmitted', 'true');
-    await AsyncStorage.setItem('isReturningUser', 'true');
 
     if (name) {
       setIsSubmitted(true);
+      await AsyncStorage.setItem('name', name);
     } else {
       alert("Please enter your name");
     }
   };
 
-  const handleGoalSubmit = () => {
+  const handleGoalSubmit = async () => {
+    setIsReturningUser(true);
+    await AsyncStorage.setItem('isReturningUser', 'true');
+
     const allGoalsAnswered = selectedGoals.every((goal) => {
       const level = strengthLevels[goal];
       const questionsCount = questions[level][goal].length;
@@ -153,6 +159,9 @@ export default function App() {
 
     if (allGoalsAnswered) {
       setIsGoalSubmitted(true);
+      await AsyncStorage.setItem('selectedGoals', JSON.stringify(selectedGoals));
+      await AsyncStorage.setItem('strengthLevels', JSON.stringify(strengthLevels));
+      await AsyncStorage.setItem('responses', JSON.stringify(responses));
     } else {
       alert("Please complete all fields based on your selected goals and strength levels");
     }
@@ -276,7 +285,7 @@ export default function App() {
     );
   }
 
-  if (isSubmitted && !isGoalSubmitted) {
+  if (isSubmitted && !isGoalSubmitted && !isReturningUser) {
     return (
       <KeyboardAvoidingView style={{ flex: 1 }} behavior={Platform.OS === "ios" ? "padding" : "height"}>
         <ScrollView contentContainerStyle={styles.scrollContainer}>
@@ -335,48 +344,50 @@ export default function App() {
     );    
   };  
 
-  return (
-    <View style={styles.container}>
-      <Text style={styles.title}>Welcome to FN-Pro, {name}!</Text>
-      <View style={styles.infoBox}>
-        <Text style={styles.infoText}>Name: {name}</Text>
-        {Array.isArray(selectedGoals) && selectedGoals.length > 0 ? (
-          selectedGoals.map((goal) => (
-            <View key={goal} style={styles.goalBox}>
-              <Text style={styles.infoText}>Goal: {goal}</Text>
-              <Text style={styles.infoText}>
-                Strength Level: {strengthLevels[goal] || 'N/A'}
-              </Text>
-
-              {questionsLabels[strengthLevels[goal]][goal].map((question, index) => (
-                <Text key={`${goal}-${index}`} style={styles.infoText}>
-                    {question}: {responses[`${goal}-${strengthLevels[goal]}-${index}`] || 'N/A'}
+  if(isReturningUser){
+    return (
+      <View style={styles.container}>
+        <Text style={styles.title}>Welcome to FN-Pro, {name}!</Text>
+        <View style={styles.infoBox}>
+          <Text style={styles.infoText}>Name: {name}</Text>
+          {Array.isArray(selectedGoals) && selectedGoals.length > 0 ? (
+            selectedGoals.map((goal) => (
+              <View key={goal} style={styles.goalBox}>
+                <Text style={styles.infoText}>Goal: {goal}</Text>
+                <Text style={styles.infoText}>
+                  Strength Level: {strengthLevels[goal] || 'N/A'}
                 </Text>
-                ))}
-            </View>
-          ))
-        ) : (
-          <Text style={styles.infoText}>No goals selected</Text>
-        )}
+
+                {questionsLabels[strengthLevels[goal]][goal].map((question, index) => (
+                  <Text key={`${goal}-${index}`} style={styles.infoText}>
+                      {question}: {responses[`${goal}-${strengthLevels[goal]}-${index}`] || 'N/A'}
+                  </Text>
+                  ))}
+              </View>
+            ))
+          ) : (
+            <Text style={styles.infoText}>No goals selected</Text>
+          )}
+        </View>
+          
+        <TouchableOpacity
+          style={styles.submitButton}
+          onPress={() =>
+              router.push({
+              pathname: "/training_plan",
+              params: {
+                  strengthLevel: JSON.stringify(strengthLevels),
+                  goal: selectedGoals,
+                  responses: JSON.stringify(responses),
+              },
+              })        
+          }
+          >
+          <Text style={styles.submitButtonText}>See Training Plan</Text>
+          </TouchableOpacity>
       </View>
-        
-      <TouchableOpacity
-        style={styles.submitButton}
-        onPress={() =>
-            router.push({
-            pathname: "/training_plan",
-            params: {
-                strengthLevel: JSON.stringify(strengthLevels),
-                goal: selectedGoals,
-                responses: JSON.stringify(responses),
-            },
-            })        
-        }
-        >
-        <Text style={styles.submitButtonText}>See Training Plan</Text>
-        </TouchableOpacity>
-    </View>
-  );
+    );
+  }
 }
 
 const styles = StyleSheet.create({
