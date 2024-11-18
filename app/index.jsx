@@ -315,11 +315,10 @@ export default function App() {
             </TouchableOpacity>
 
             <TouchableOpacity
-              style={[styles.goalButton, selectedGoals.includes('FrontLever') && styles.goalButtonSelected, 
-              ]}
+              style={[styles.goalButton, selectedGoals.includes('FrontLever') && styles.goalButtonSelected]}
               onPress={() => handleGoalSelection('FrontLever')}
             >
-              <Text style={[styles.goalText, selectedGoals.includes('FrontLever') && styles.goalTextDisabled]}>Front Lever</Text> 
+              <Text style={[styles.goalText]}>Front Lever</Text> 
             </TouchableOpacity>
 
             <TouchableOpacity style={styles.submitButton} onPress={handleSubmit}>
@@ -336,54 +335,57 @@ export default function App() {
       <KeyboardAvoidingView style={{ flex: 1 }} behavior={Platform.OS === "ios" ? "padding" : "height"}>
         <ScrollView contentContainerStyle={styles.scrollContainer}>
           <View style={styles.container}>
-            {selectedGoals.map((goal) => (
-              <View key={goal}>
+          {selectedGoals.map((goal) => (
+              <View key={goal} style={styles.goalContainer}>
                 <Text style={styles.question}>Select your strength level for {goal}:</Text>
                 {["Beginner", "Intermediate", "Advanced"].map((level) => {
-                // Keep Intermediate and Advanced disabled if Beginner is selected
-                const isDisabled = (level !== "Beginner" && !strengthLevels[goal]) || 
-                                  (strengthLevels[goal] === "Beginner" && level !== "Beginner");
-                return (
-                  <TouchableOpacity
-                    key={level}
-                    style={[
-                      styles.levelButton,
-                      strengthLevels[goal] === level && styles.levelButtonSelected,
-                      isDisabled && styles.levelButtonDisabled,
-                    ]}
-                    onPress={() => !isDisabled && handleStrengthLevelSelection(goal, level)}
-                  >
-                    <Text style={[styles.levelText, isDisabled && styles.levelTextDisabled]}>{level}</Text>
-                  </TouchableOpacity>
-                );
-              })}
-    
-              {strengthLevels[goal] &&
-                    questions[strengthLevels[goal]][goal].map((question, index) => (
-                      <View key={`${goal}-${index}`} style={styles.questionContainer}>
-                        <Text style={styles.question}>{question}</Text>
-                        {imageMap[question] && ( // Check if image exists for the question
-                            <Image
-                              source={imageMap[question]}
-                              style={styles.image}
-                            />
-                        )}
-                        <TextInput
-                          style={styles.input}
-                          placeholder="Enter your response"
-                          placeholderTextColor="#888"
-                          keyboardType="numeric"
-                          onChangeText={(text) => {
-                            // Allow only numbers and truncate to 2 digits
-                            const formattedText = text.replace(/[^0-9]/g, '').slice(0, 2);
-                            handleResponseChange(goal, index, formattedText);
-                          }}
-                          value={responses[`${goal}-${strengthLevels[goal]}-${index}`]}
+                  // Keep Intermediate and Advanced disabled if Beginner is selected
+                  const isDisabled = (level !== "Beginner" && !strengthLevels[goal]) || 
+                                    (strengthLevels[goal] === "Beginner" && level !== "Beginner");
+                  return (
+                    <TouchableOpacity
+                      key={level}
+                      style={[
+                        styles.levelButton,
+                        strengthLevels[goal] === level && styles.levelButtonSelected,
+                        isDisabled && styles.levelButtonDisabled,
+                      ]}
+                      onPress={() => !isDisabled && handleStrengthLevelSelection(goal, level)}
+                    >
+                      <Text style={[styles.levelText, isDisabled && styles.levelTextDisabled]}>
+                        {level}
+                      </Text>
+                    </TouchableOpacity>
+                  );
+                })}
+                
+                {strengthLevels[goal] && 
+                  questions[strengthLevels[goal]][goal].map((question, index) => (
+                    <View key={`${goal}-${index}`} style={styles.questionContainer}>
+                      <Text style={styles.question}>{question}</Text>
+                      {imageMap[question] && ( // Check if image exists for the question
+                        <Image
+                          source={imageMap[question]}
+                          style={styles.image}
                         />
-                      </View>
-                    ))}
-                </View>
-              ))}
+                      )}
+                      <TextInput
+                        style={styles.input}
+                        placeholder="Enter your response"
+                        placeholderTextColor="#888"
+                        keyboardType="numeric"
+                        onChangeText={(text) => {
+                          // Allow only numbers and truncate to 2 digits
+                          const formattedText = text.replace(/[^0-9]/g, '').slice(0, 2);
+                          handleResponseChange(goal, index, formattedText);
+                        }}
+                        value={responses[`${goal}-${strengthLevels[goal]}-${index}`]}
+                      />
+                    </View>
+                  ))
+                }
+              </View>
+            ))}
     
             <TouchableOpacity style={styles.submitButton} onPress={handleGoalSubmit}>
               <Text style={styles.submitButtonText}>Save Goal Info</Text>
@@ -551,5 +553,9 @@ const styles = StyleSheet.create({
     height: 200, // You can adjust the height to control the size of the image
     resizeMode: 'contain', // Ensures that the image fits within its container without distortion
     marginBottom: 20, // Optional: to give space below the image
+  },  
+  goalContainer: {
+    width: '100%', // Ensure the goal container takes full width of the screen
+    marginBottom: 20, // Adds space between each goal container
   },  
 });
