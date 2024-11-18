@@ -76,7 +76,7 @@ const TrainingPlan = () => {
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     
-    if (level["Planche"] === "Beginner" && goal.includes("Planche")) {
+    if (level["Planche"] === "Beginner" && goal.includes("Planche") && !goal.includes("FrontLever")) {
       const pseudoPlanchePushupCount = parseInt(userResponses["Planche-Beginner-0"], 10);
       const pseudoLeanHoldTime = parseInt(userResponses["Planche-Beginner-1"], 10);
 
@@ -104,7 +104,7 @@ const TrainingPlan = () => {
             ]
           });
         }
-      } else if (pseudoPlanchePushupCount >= 1 && pseudoPlanchePushupCount < 6 || pseudoLeanHoldTime > 3 && pseudoLeanHoldTime < 8) {
+      } else if (pseudoPlanchePushupCount > 1 && pseudoPlanchePushupCount < 6 || pseudoLeanHoldTime > 3 && pseudoLeanHoldTime < 8) {
         // New conditional routine for weeks 1 and 2
         for (let week = 1; week <= 2; week++) {
           plan.push({
@@ -128,7 +128,7 @@ const TrainingPlan = () => {
             ]
           });
         }
-      } else if (pseudoPlanchePushupCount >= 6 || pseudoLeanHoldTime >= 8) {
+      } else if (pseudoPlanchePushupCount >= 6 && pseudoPlanchePushupCount <= 12 || pseudoLeanHoldTime >= 8 && pseudoLeanHoldTime <= 14) {
         // New advanced conditional routine for weeks 1 and 2
         for (let week = 1; week <= 2; week++) {
           plan.push({
@@ -157,7 +157,7 @@ const TrainingPlan = () => {
 
     //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    if (level["FrontLever"] === "Beginner" && goal.includes("FrontLever")) {
+    if (level["FrontLever"] === "Beginner" && goal.includes("FrontLever") && !goal.includes("Planche")) {
       const australianPullUpsCount = parseInt(userResponses["FrontLever-Beginner-0"], 10);
       const tuckFrontLeverHoldTime = parseInt(userResponses["FrontLever-Beginner-1"], 10);
       if (australianPullUpsCount < 3 || tuckFrontLeverHoldTime < 3) {
@@ -211,7 +211,7 @@ const TrainingPlan = () => {
             ],
           });
         }
-      } else if (australianPullUpsCount > 10 || tuckFrontLeverHoldTime > 8) {
+      } else if (australianPullUpsCount > 10 && australianPullUpsCount <= 20 || tuckFrontLeverHoldTime > 8 && tuckFrontLeverHoldTime <= 18) {
         // Weeks 1 and 2 Routine
         for (let week = 1; week <= 2; week++) {
           plan.push({
@@ -237,6 +237,10 @@ const TrainingPlan = () => {
         }
       }    
     }
+
+    //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
 
     //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 

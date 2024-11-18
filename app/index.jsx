@@ -133,8 +133,6 @@ export default function App() {
   };
 
   const handleSubmit = async () => {
-    setIsSubmitted(true);
-
     await AsyncStorage.setItem('isSubmitted', 'true');
 
     if (name) {
@@ -146,17 +144,65 @@ export default function App() {
   };
 
   const handleGoalSubmit = async () => {
-    setIsReturningUser(true);
-    await AsyncStorage.setItem('isReturningUser', 'true');
+    
+    // Check responses for all selected goals
+    let isValid = true;
+    let message = "";
+  
+    // Loop through all selected goals
+    for (const goal of selectedGoals) {
+      const level = strengthLevels[goal];
+      const questionsCount = questions[level][goal].length;
+  
+      // Loop through each question for the goal
+      for (let index = 0; index < questionsCount; index++) {
+        const responseKey = `${goal}-${level}-${index}`;
+        const response = responses[responseKey] ? parseInt(responses[responseKey], 10) : 0;
+  
+        // Example thresholds for Intermediate recommendation
+        if (goal === "FrontLever" && index === 1 && response > 18) {
+          isValid = false;
+          message = "Your performance suggests you might be more suited to the Intermediate level.";
+          break; // Exit loop if invalid
+        } else if (goal === "FrontLever" && index === 0 && response > 20) {
+          isValid = false;
+          message = "Your performance suggests you might be more suited to the Intermediate level.";
+          break; // Exit loop if invalid
+        }
 
+        if (goal === "Planche" && index === 1 && response > 14) {
+          isValid = false;
+          message = "Your performance suggests you might be more suited to the Intermediate level.";
+          break; // Exit loop if invalid
+        } else if (goal === "Planche" && index === 0 && response > 12) {
+          isValid = false;
+          message = "Your performance suggests you might be more suited to the Intermediate level.";
+          break; // Exit loop if invalid
+        }
+      }
+    }
+  
+    // Show message if invalid
+    if (!isValid) {
+      alert(message);
+      return; // Prevent submission
+    }
+
+    if(isValid){
+      setIsReturningUser(true);
+      await AsyncStorage.setItem('isReturningUser', 'true');
+    }
+  
+    // Check if all questions are answered
     const allGoalsAnswered = selectedGoals.every((goal) => {
       const level = strengthLevels[goal];
       const questionsCount = questions[level][goal].length;
       return Array.from({ length: questionsCount }).every((_, index) =>
-        responses[`${goal}-${level}-${index}`]
+        responses[`${goal}-${level}-${index}`] // Check if each response exists
       );
     });
-
+  
+    // If all questions are answered, proceed with goal submission
     if (allGoalsAnswered) {
       setIsGoalSubmitted(true);
       await AsyncStorage.setItem('selectedGoals', JSON.stringify(selectedGoals));
@@ -166,6 +212,7 @@ export default function App() {
       alert("Please complete all fields based on your selected goals and strength levels");
     }
   };
+  
 
   const questions = {
     ///////////////////////////////////////////////////////////////////////////////
@@ -326,7 +373,11 @@ export default function App() {
                           placeholder="Enter your response"
                           placeholderTextColor="#888"
                           keyboardType="numeric"
-                          onChangeText={(text) => handleResponseChange(goal, index, text)}
+                          onChangeText={(text) => {
+                            // Allow only numbers and truncate to 2 digits
+                            const formattedText = text.replace(/[^0-9]/g, '').slice(0, 2);
+                            handleResponseChange(goal, index, formattedText);
+                          }}
                           value={responses[`${goal}-${strengthLevels[goal]}-${index}`]}
                         />
                       </View>
