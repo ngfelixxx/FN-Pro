@@ -168,12 +168,13 @@ export default function App() {
   };
 
   const questions = {
+    ///////////////////////////////////////////////////////////////////////////////
     Beginner: {
       Planche: [
         "How many Pseudo Planche Push-Ups can you do?",
         "How long can you hold the Pseudo Planche Lean?(seconds)",
       ],
-      "Front Lever": [
+      FrontLever: [
         "How many Australian Pull-Ups can you do?",
         "How long can you hold a Tuck Front Lever?(seconds)",
       ],
@@ -184,7 +185,7 @@ export default function App() {
         "How many straddle planche push-ups can you do?",
         "How many straddle planche presses can you do?",
       ],
-      "Front Lever": [
+      FrontLever: [
         "How long can you hold a full front lever?(seconds)",
         "How many front lever raises can you do?",
         "How many front lever pull-ups can you do?",
@@ -196,7 +197,7 @@ export default function App() {
         "How many full planche push-ups can you do?",
         "How many full planche presses can you do?",
       ],
-      "Front Lever": [
+      FrontLever: [
         "How long can you front lever touch?(seconds)",
         "How long can you hold a wide front lever?(seconds)",
         "How many wide front lever raises can you do?",
@@ -210,7 +211,7 @@ export default function App() {
         "Pseudo planche push-up count",
         "Pseudo planche lean hold time(seconds)",
       ],
-      "Front Lever": [
+      FrontLever: [
         "Australian pull-up count",
         "Tuck front lever hold time(seconds)",
       ],
@@ -221,7 +222,7 @@ export default function App() {
         "Number of straddle planche push-ups",
         "Number of straddle planche presses",
       ],
-      "Front Lever": [
+      FrontLever: [
         "Full front lever hold time(seconds)",
         "Number of front lever raises",
         "Number of front lever pull-ups",
@@ -233,7 +234,7 @@ export default function App() {
         "Number of full planche push-ups",
         "Number of full planche presses",
       ],
-      "Front Lever": [
+      FrontLever: [
         "Front lever touch hold time(seconds)",
         "Wide front lever hold time(seconds)",
         "Number of wide front lever raises",
@@ -267,13 +268,11 @@ export default function App() {
             </TouchableOpacity>
 
             <TouchableOpacity
-              style={[styles.goalButton, selectedGoals.includes('Front Lever') && styles.goalButtonSelected, 
-                !selectedGoals.includes('Front Lever') && styles.goalButtonDisabled, //Temporary Disbale 
+              style={[styles.goalButton, selectedGoals.includes('FrontLever') && styles.goalButtonSelected, 
               ]}
-              onPress={() => handleGoalSelection('Front Lever')}
-              disabled={!selectedGoals.includes('Front Lever')}  //Temporary Disable
+              onPress={() => handleGoalSelection('FrontLever')}
             >
-              <Text style={[styles.goalText, selectedGoals.includes('Front Lever') && styles.goalTextDisabled]}>Front Lever</Text> 
+              <Text style={[styles.goalText, selectedGoals.includes('FrontLever') && styles.goalTextDisabled]}>Front Lever</Text> 
             </TouchableOpacity>
 
             <TouchableOpacity style={styles.submitButton} onPress={handleSubmit}>

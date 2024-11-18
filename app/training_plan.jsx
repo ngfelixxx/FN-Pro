@@ -73,6 +73,8 @@ const TrainingPlan = () => {
 
   const generateTrainingPlan = (level, goal, userResponses) => {
     const plan = [];
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     
     if (level["Planche"] === "Beginner" && goal.includes("Planche")) {
       const pseudoPlanchePushupCount = parseInt(userResponses["Planche-Beginner-0"], 10);
@@ -84,9 +86,9 @@ const TrainingPlan = () => {
           plan.push({ 
             week: `Week ${week}`,
             days: [
-              { day: "Monday", workout: generateWeek1Workout() },
-              { day: "Wednesday", workout: generateWeek1Workout() },
-              { day: "Friday", workout: generateWeek1Workout() }
+              { day: "Monday", workout: generatePlancheEarlyBeginnerFirstHalf() },
+              { day: "Wednesday", workout: generatePlancheEarlyBeginnerFirstHalf() },
+              { day: "Friday", workout: generatePlancheEarlyBeginnerFirstHalf() }
             ]
           });
         }
@@ -96,9 +98,9 @@ const TrainingPlan = () => {
           plan.push({
             week: `Week ${week}`,
             days: [
-              { day: "Monday", workout: generateWeek4_5Workout() },
-              { day: "Wednesday", workout: generateWeek4_5Workout() },
-              { day: "Friday", workout: generateWeek4_5Workout() }
+              { day: "Monday", workout: generatePlancheEarlyBeginnerSecondHalf() },
+              { day: "Wednesday", workout: generatePlancheEarlyBeginnerSecondHalf() },
+              { day: "Friday", workout: generatePlancheEarlyBeginnerSecondHalf() }
             ]
           });
         }
@@ -108,9 +110,9 @@ const TrainingPlan = () => {
           plan.push({
             week: `Week ${week}`,
             days: [
-              { day: "Monday", workout: generateNewWeek1Workout() },
-              { day: "Wednesday", workout: generateNewWeek1Workout() },
-              { day: "Friday", workout: generateNewWeek1Workout() }
+              { day: "Monday", workout: generatePlancheMidBeginnerFirstHalf() },
+              { day: "Wednesday", workout: generatePlancheMidBeginnerFirstHalf() },
+              { day: "Friday", workout: generatePlancheMidBeginnerFirstHalf() }
             ]
           });
         }
@@ -120,9 +122,9 @@ const TrainingPlan = () => {
           plan.push({
             week: `Week ${week}`,
             days: [
-              { day: "Monday", workout: generateNewWeek4_5Workout() },
-              { day: "Wednesday", workout: generateNewWeek4_5Workout() },
-              { day: "Friday", workout: generateNewWeek4_5Workout() }
+              { day: "Monday", workout: generatePlancheMidBeginnerSecondHalf() },
+              { day: "Wednesday", workout: generatePlancheMidBeginnerSecondHalf() },
+              { day: "Friday", workout: generatePlancheMidBeginnerSecondHalf() }
             ]
           });
         }
@@ -132,9 +134,9 @@ const TrainingPlan = () => {
           plan.push({
             week: `Week ${week}`,
             days: [
-              { day: "Monday", workout: generateAdvancedWeek1Workout() },
-              { day: "Wednesday", workout: generateAdvancedWeek1Workout() },
-              { day: "Friday", workout: generateAdvancedWeek1Workout() }
+              { day: "Monday", workout: generatePlancheLateBeginnerFirstHalf() },
+              { day: "Wednesday", workout: generatePlancheLateBeginnerFirstHalf() },
+              { day: "Friday", workout: generatePlancheLateBeginnerFirstHalf() }
             ]
           });
         }
@@ -144,14 +146,99 @@ const TrainingPlan = () => {
           plan.push({
             week: `Week ${week}`,
             days: [
-              { day: "Monday", workout: generateAdvancedWeek4_5Workout() },
-              { day: "Wednesday", workout: generateAdvancedWeek4_5Workout() },
-              { day: "Friday", workout: generateAdvancedWeek4_5Workout() }
+              { day: "Monday", workout: generatePlancheLateBeginnerSecondHalf() },
+              { day: "Wednesday", workout: generatePlancheLateBeginnerSecondHalf() },
+              { day: "Friday", workout: generatePlancheLateBeginnerSecondHalf() }
             ]
           });
         }
       }
     }
+
+    //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    if (level["FrontLever"] === "Beginner" && goal.includes("FrontLever")) {
+      const australianPullUpsCount = parseInt(userResponses["FrontLever-Beginner-0"], 10);
+      const tuckFrontLeverHoldTime = parseInt(userResponses["FrontLever-Beginner-1"], 10);
+      if (australianPullUpsCount < 3 || tuckFrontLeverHoldTime < 3) {
+        // Weeks 1 and 2 Routine
+        for (let week = 1; week <= 2; week++) {
+          plan.push({
+            week: `Week ${week}`,
+            days: [
+              { day: "Monday", workout: generateFrontLeverEarlyBeginnerFirstHalf() },
+              { day: "Wednesday", workout: generateFrontLeverEarlyBeginnerFirstHalf() },
+              { day: "Friday", workout: generateFrontLeverEarlyBeginnerFirstHalf() },
+            ],
+          });
+        }
+      
+        // Weeks 3 and 4 Routine (modified)
+        for (let week = 3; week <= 4; week++) {
+          plan.push({
+            week: `Week ${week}`,
+            days: [
+              { day: "Monday", workout: generateFrontLeverEarlyBeginnerSecondHalf() },
+              { day: "Wednesday", workout: generateFrontLeverEarlyBeginnerSecondHalf() },
+              { day: "Friday", workout: generateFrontLeverEarlyBeginnerSecondHalf() },
+            ],
+          });
+        }
+      } else if (
+        (australianPullUpsCount > 3 && australianPullUpsCount <= 10) ||
+        (tuckFrontLeverHoldTime > 3 && tuckFrontLeverHoldTime <= 8)
+      ) {
+        // Weeks 1 and 2 Routine
+        for (let week = 1; week <= 2; week++) {
+          plan.push({
+            week: `Week ${week}`,
+            days: [
+              { day: "Monday", workout: generateMidBeginnerFrontLeverBeginnerFirstHalf() },
+              { day: "Wednesday", workout: generateMidBeginnerFrontLeverBeginnerFirstHalf() },
+              { day: "Friday", workout: generateMidBeginnerFrontLeverBeginnerFirstHalf() },
+            ],
+          });
+        }
+      
+        // Weeks 3 and 4 Routine (modified)
+        for (let week = 3; week <= 4; week++) {
+          plan.push({
+            week: `Week ${week}`,
+            days: [
+              { day: "Monday", workout: generateMidBeginnerFrontLeverSecondHalf() },
+              { day: "Wednesday", workout: generateMidBeginnerFrontLeverSecondHalf() },
+              { day: "Friday", workout: generateMidBeginnerFrontLeverBeginnerSecondHalf() },
+            ],
+          });
+        }
+      } else if (australianPullUpsCount > 10 || tuckFrontLeverHoldTime > 8) {
+        // Weeks 1 and 2 Routine
+        for (let week = 1; week <= 2; week++) {
+          plan.push({
+            week: `Week ${week}`,
+            days: [
+              { day: "Monday", workout: generateLateBeginnerFrontLeverFirstHalf() },
+              { day: "Wednesday", workout: generateLateBeginnerFrontLeverFirstHalf() },
+              { day: "Friday", workout: generateLateBeginnerFrontLeverFirstHalf() },
+            ],
+          });
+        }
+      
+        // Weeks 3 and 4 Routine (modified)
+        for (let week = 3; week <= 4; week++) {
+          plan.push({
+            week: `Week ${week}`,
+            days: [
+              { day: "Monday", workout: generateLateBeginnerFrontLeverSecondHalf() },
+              { day: "Wednesday", workout: generateLateBeginnerFrontLeverSecondHalf() },
+              { day: "Friday", workout: generateLateBeginnerFrontLeverSecondHalf() },
+            ],
+          });
+        }
+      }    
+    }
+
+    //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     setTrainingPlan(plan);  // Update state with the generated training plan
   };
@@ -165,8 +252,10 @@ const TrainingPlan = () => {
     });
   };
 
+  //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
   // Workout for Week 1 and 2
-  const generateWeek1Workout = () => [
+  const generatePlancheEarlyBeginnerFirstHalf  = () => [
     { name: "Warm-Up: Shoulder Dislocates", reps: 10, sets: 2, rest: "30 sec" },
     { name: "Activation: Regular Push-Ups", reps: 3, sets: 3, rest: "1 min" },
     { name: "Skill Development: Regular Dips", reps: 3, sets: 2, rest: "2 min" },
@@ -176,7 +265,7 @@ const TrainingPlan = () => {
   ];
 
   // Workout for Week 3 and 4 (modified)
-  const generateWeek4_5Workout = () => [
+  const generatePlancheEarlyBeginnerSecondHalf  = () => [
     { name: "Warm-Up: Shoulder Dislocates", reps: 10, sets: 2, rest: "30 sec" },
     { name: "Activation: Regular Push-Ups", reps: 3, sets: 3, rest: "1 min" },
     { name: "Skill Development: Pseudo Planche Leans On Knees", duration: "5 sec", sets: 5, rest: "3 min" },
@@ -185,8 +274,10 @@ const TrainingPlan = () => {
     { name: "Cool Down: Horizontal Retractive Scapula Pull Up", reps: 3, sets: 5, rest: "1 min" },
   ];
 
+  //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
   // New Conditional Workouts for Pseudo Planche Push-Up Count >= 1 and < 6 or Pseudo Lean Hold > 3 seconds and < 8 seconds
-  const generateNewWeek1Workout = () => [
+  const generatePlancheMidBeginnerFirstHalf  = () => [
     { name: "Warm-Up: Shoulder Dislocates", reps: 10, sets: 2, rest: "30 sec" },
     { name: "Activation: Explosive Pseudo Push-Ups on Knees", reps: 3, sets: 3, rest: "1 min" },
     { name: "Skill Development: Pseudo Planche Leans", duration: "5 sec", sets: 4, rest: "1 min" },
@@ -197,7 +288,7 @@ const TrainingPlan = () => {
     { name: "Cool Down: Horizontal Retractive Scapula Pull Up", reps: 3, sets: 5, rest: "1 min" },
   ];
 
-  const generateNewWeek4_5Workout = () => [
+  const generatePlancheMidBeginnerSecondHalf  = () => [
     { name: "Warm-Up: Shoulder Dislocates", reps: 10, sets: 2, rest: "30 sec" },
     { name: "Activation: Explosive Pseudo Push-Ups on Knees", reps: 3, sets: 3, rest: "1 min" },
     { name: "Skill Development: Pseudo Planche Leans", duration: "3 sec", sets: 5, rest: "1 min" },
@@ -208,8 +299,10 @@ const TrainingPlan = () => {
     { name: "Cool Down: Horizontal Retractive Scapula Pull Up", reps: 3, sets: 5, rest: "1 min" },
   ];
 
+  //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
   // Advanced Conditional Workouts for Pseudo Planche Push-Up Count >= 6 or Pseudo Lean Hold >= 8 seconds
-  const generateAdvancedWeek1Workout = () => [
+  const generatePlancheLateBeginnerFirstHalf = () => [
     { name: "Warm-Up: Shoulder Dislocates", reps: 10, sets: 2, rest: "30 sec" },
     { name: "Activation: Explosive Pseudo Push-Ups on Knees", reps: 3, sets: 3, rest: "1 min" },
     { name: "Skill Development: Advanced Tuck Planche Holds", duration: "3 sec", sets: 10, rest: "2 min" },
@@ -220,7 +313,7 @@ const TrainingPlan = () => {
     { name: "Cool Down: Horizontal Retractive Scapula Pull Up", reps: 3, sets: 5, rest: "1 min" },
   ];
 
-  const generateAdvancedWeek4_5Workout = () => [
+  const generatePlancheLateBeginnerSecondHalf = () => [
     { name: "Warm-Up: Shoulder Dislocates", reps: 10, sets: 2, rest: "30 sec" },
     { name: "Activation: Explosive Pseudo Push-Ups on Knees", reps: 3, sets: 3, rest: "1 min" },
     { name: "Skill Development: Advanced Tuck Planche Holds", duration: "3 sec", sets: 10, rest: "2 min" },
@@ -230,6 +323,73 @@ const TrainingPlan = () => {
     { name: "Resistance Training: Straight Arm Band Flies", reps: 10, sets: 3, rest: "30 sec" },
     { name: "Cool Down: Horizontal Retractive Scapula Pull Up", reps: 3, sets: 5, rest: "1 min" },
   ];
+
+  //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  
+  const generateFrontLeverEarlyBeginnerFirstHalf = () => [
+    { name: "Warm Up: Band Pull-Aparts", reps: 10, sets: 3, rest: "30 sec" },
+    { name: "Activation: Horizontal Retractive Scapula Pull Up", reps: 5, sets: 4, rest: "1 min" },
+    { name: "Skill Development: Incline Australian Pull Ups", reps: 5, sets: 4, rest: "2 min" },
+    { name: "Skill Development: Band Assisted Tuck Front Lever Hold", duration: "5 sec", sets: 5, rest: "3 min" },
+    { name: "Skill Development: Knee Raises", reps: 3, sets: 5, rest: "3 min" },
+    { name: "Resistance Training: Retractive Scapula Band Rows", reps: 5, sets: 4, rest: "1 min" },
+    { name: "Cool Down: Pseudo Planche Scapula Push Ups", reps: 3, sets: 5, rest: "1 min" },
+  ];
+  
+  const generateFrontLeverEarlyBeginnerSecondHalf = () => [
+    { name: "Warm Up: Band Pull-Aparts", reps: 10, sets: 3, rest: "30 sec" },
+    { name: "Activation: Horizontal Retractive Scapula Pull Up", reps: 5, sets: 4, rest: "1 min" },
+    { name: "Skill Development: Incline Australian Pull Ups", reps: 3, sets: 5, rest: "2 min" },
+    { name: "Skill Development: Band Assisted Tuck Front Lever Hold", duration: "5 sec", sets: 5, rest: "3 min" },
+    { name: "Skill Development: Knee Raises", reps: 3, sets: 7, rest: "3 min" },
+    { name: "Resistance Training: Retractive Scapula Band Rows", reps: 5, sets: 4, rest: "1 min" },
+    { name: "Cool Down: Pseudo Planche Scapula Push Ups", reps: 3, sets: 5, rest: "1 min" },
+  ];
+  
+  const generateMidBeginnerFrontLeverBeginnerFirstHalf = () => [
+    { name: "Warm Up: Band Pull-Aparts", reps: 10, sets: 3, rest: "30 sec" },
+    { name: "Activation: Horizontal Retractive Scapula Pull Up", reps: 5, sets: 4, rest: "1 min" },
+    { name: "Skill Development: Regular Australian Pull Ups", reps: 5, sets: 4, rest: "2 min" },
+    { name: "Skill Development: Tuck Front Lever Hold", duration: "3 sec", sets: 5, rest: "3 min" },
+    { name: "Skill Development: Tuck Dragon Flag", reps: 2, sets: 5, rest: "3 min" },
+    { name: "Skill Development: Knee Raises", reps: 3, sets: 7, rest: "3 min" },
+    { name: "Resistance Training: Retractive Scapula Band Rows", reps: 5, sets: 4, rest: "1 min" },
+    { name: "Cool Down: Pseudo Planche Scapula Push Ups", reps: 3, sets: 5, rest: "1 min" },
+  ];
+  
+  const generateMidBeginnerFrontLeverSecondHalf = () => [
+    { name: "Warm Up: Band Pull-Aparts", reps: 10, sets: 3, rest: "30 sec" },
+    { name: "Activation: Horizontal Retractive Scapula Pull Up", reps: 5, sets: 4, rest: "1 min" },
+    { name: "Skill Development: Regular Australian Pull Ups", reps: 3, sets: 7, rest: "2 min" },
+    { name: "Skill Development: Tuck Front Lever Hold", duration: "3 sec", sets: 10, rest: "3 min" },
+    { name: "Skill Development: Tuck Dragon Flag", reps: 2, sets: 5, rest: "3 min" },
+    { name: "Skill Development: Knee Raises", reps: 3, sets: 7, rest: "3 min" },
+    { name: "Resistance Training: Retractive Scapula Band Rows", reps: 5, sets: 4, rest: "1 min" },
+    { name: "Cool Down: Pseudo Planche Scapula Push Ups", reps: 3, sets: 5, rest: "1 min" },
+  ];
+  
+  const generateLateBeginnerFrontLeverFirstHalf = () => [
+    { name: "Warm Up: Band Pull-Aparts", reps: 10, sets: 3, rest: "30 sec" },
+    { name: "Activation: Horizontal Retractive Scapula Pull Up", reps: 5, sets: 4, rest: "1 min" },
+    { name: "Skill Development: Advanced Tuck Front Lever Hold", duration: "5 sec", sets: 10, rest: "3 min" },
+    { name: "Skill Development: Tuck Dragon Flag", reps: 2, sets: 8, rest: "3 min" },
+    { name: "Skill Development: Tuck Front Lever Raises", reps: 2, sets: 10, rest: "2 min" },
+    { name: "Resistance Training: Retractive Scapula Band Rows", reps: 5, sets: 4, rest: "1 min" },
+    { name: "Cool Down: Pseudo Planche Scapula Push Ups", reps: 3, sets: 5, rest: "1 min" },
+  ];
+  
+  const generateLateBeginnerFrontLeverSecondHalf = () => [
+    { name: "Warm Up: Band Pull-Aparts", reps: 10, sets: 3, rest: "30 sec" },
+    { name: "Activation: Horizontal Retractive Scapula Pull Up", reps: 5, sets: 4, rest: "1 min" },
+    { name: "Skill Development: Advanced Tuck Front Lever Hold", duration: "3 sec", sets: 15, rest: "3 min" },
+    { name: "Skill Development: Advanced Tuck Dragon Flag", reps: 1, sets: 10, rest: "3 min" },
+    { name: "Skill Development: Tuck Front Lever Raises", reps: 2, sets: 10, rest: "2 min" },
+    { name: "Resistance Training: Retractive Scapula Band Rows", reps: 5, sets: 4, rest: "1 min" },
+    { name: "Cool Down: Pseudo Planche Scapula Push Ups", reps: 3, sets: 5, rest: "1 min" },
+  ];  
+
+  //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  
 
   if (!trainingPlan.length) {
     return (
