@@ -21,15 +21,15 @@ export default function StartNewCycle() {
   const questions = {
     Beginner: {
       Planche: ["How many Pseudo Planche Push-Ups can you do?", "How long can you hold the Pseudo Planche Lean?(seconds)"],
-      "Front Lever": ["How many Australian Pull-Ups can you do?", "How long can you hold a Tuck Front Lever?(seconds)"],
+      FrontLever: ["How many Australian Pull-Ups can you do?", "How long can you hold a Tuck Front Lever?(seconds)"],
     },
     Intermediate: {
       Planche: ["How long can you hold a straddle planche?(seconds)", "How many straddle planche push-ups can you do?", "How many straddle planche presses can you do?"],
-      "Front Lever": ["How long can you hold a full front lever?(seconds)", "How many front lever raises can you do?", "How many front lever pull-ups can you do?"],
+      FrontLever: ["How long can you hold a full front lever?(seconds)", "How many front lever raises can you do?", "How many front lever pull-ups can you do?"],
     },
     Advanced: {
       Planche: ["How long can you hold a full planche?(seconds)", "How many full planche push-ups can you do?", "How many full planche presses can you do?"],
-      "Front Lever": ["How long can you front lever touch?(seconds)", "How long can you hold a wide front lever?(seconds)", "How many wide front lever raises can you do?"],
+      FrontLever: ["How long can you front lever touch?(seconds)", "How long can you hold a wide front lever?(seconds)", "How many wide front lever raises can you do?"],
     },
   };
 
@@ -115,9 +115,9 @@ const handleSubmit = async () => {
         await clearAsyncStorageExceptName();
   
         // Store the new values in AsyncStorage
-        await AsyncStorage.setItem('selectedGoals', JSON.stringify(selectedGoals));
-        await AsyncStorage.setItem('strengthLevels', JSON.stringify(strengthLevels));
-        await AsyncStorage.setItem('responses', JSON.stringify(responses));
+        await AsyncStorage.setItem('selectedGoals', selectedGoals ? JSON.stringify(selectedGoals) : []);
+        await AsyncStorage.setItem('strengthLevels', strengthLevels ? JSON.stringify(strengthLevels) : {});
+        await AsyncStorage.setItem('responses', responses ? JSON.stringify(responses) : {});
 
         // Log state after saving
         console.log("State after save:", { selectedGoals, strengthLevels, responses });
@@ -151,16 +151,11 @@ if (!isSubmitted) {
             <TouchableOpacity
               style={[
                 styles.goalButton,
-                selectedGoals.includes('Front Lever') && styles.goalButtonSelected,
-                !selectedGoals.includes('Front Lever') && styles.goalButtonDisabled, // Disable Front Lever if not selected
+                selectedGoals.includes('FrontLever') && styles.goalButtonSelected,
               ]}
-              onPress={() => handleGoalSelection('Front Lever')}
-              disabled={!selectedGoals.includes('Front Lever')} // Disable Front Lever button if not selected
+              onPress={() => handleGoalSelection('FrontLever')}
             >
-              <Text style={[
-                styles.goalText,
-                !selectedGoals.includes('Front Lever') && styles.goalTextDisabled, // Apply disabled text style
-              ]}>Front Lever</Text>
+              <Text style={[styles.goalText]}>Front Lever</Text>
             </TouchableOpacity>
   
             {selectedGoals.map((goal) => (
@@ -348,5 +343,9 @@ const styles = StyleSheet.create({
       resizeMode: 'contain', // Ensures that the image fits within its container without distortion
       marginBottom: 20, // Optional: to give space below the image
     },  
+    goalContainer: {
+      width: '90%', // Ensure consistent width
+      alignSelf: 'center', // Center the content
+      marginVertical: 10, // Add spacing between sections
+    },    
   });
-  

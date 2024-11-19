@@ -86,9 +86,9 @@ const TrainingPlan = () => {
           plan.push({ 
             week: `Week ${week}`,
             days: [
-              { day: "Monday", workout: generatePlancheEarlyBeginnerFirstHalf() },
-              { day: "Wednesday", workout: generatePlancheEarlyBeginnerFirstHalf() },
-              { day: "Friday", workout: generatePlancheEarlyBeginnerFirstHalf() }
+              { day: "Monday", workout: generateEarlyBeginnerPlancheFirstHalf() },
+              { day: "Wednesday", workout: generateEarlyBeginnerPlancheFirstHalf() },
+              { day: "Friday", workout: generateEarlyBeginnerPlancheFirstHalf() }
             ]
           });
         }
@@ -98,9 +98,9 @@ const TrainingPlan = () => {
           plan.push({
             week: `Week ${week}`,
             days: [
-              { day: "Monday", workout: generatePlancheEarlyBeginnerSecondHalf() },
-              { day: "Wednesday", workout: generatePlancheEarlyBeginnerSecondHalf() },
-              { day: "Friday", workout: generatePlancheEarlyBeginnerSecondHalf() }
+              { day: "Monday", workout: generateEarlyBeginnerPlancheSecondHalf() },
+              { day: "Wednesday", workout: generateEarlyBeginnerPlancheSecondHalf() },
+              { day: "Friday", workout: generateEarlyBeginnerPlancheSecondHalf() }
             ]
           });
         }
@@ -110,9 +110,9 @@ const TrainingPlan = () => {
           plan.push({
             week: `Week ${week}`,
             days: [
-              { day: "Monday", workout: generatePlancheMidBeginnerFirstHalf() },
-              { day: "Wednesday", workout: generatePlancheMidBeginnerFirstHalf() },
-              { day: "Friday", workout: generatePlancheMidBeginnerFirstHalf() }
+              { day: "Monday", workout: generateMidBeginnerPlancheFirstHalf() },
+              { day: "Wednesday", workout: generateMidBeginnerPlancheFirstHalf() },
+              { day: "Friday", workout: generateMidBeginnerPlancheFirstHalf() }
             ]
           });
         }
@@ -122,9 +122,9 @@ const TrainingPlan = () => {
           plan.push({
             week: `Week ${week}`,
             days: [
-              { day: "Monday", workout: generatePlancheMidBeginnerSecondHalf() },
-              { day: "Wednesday", workout: generatePlancheMidBeginnerSecondHalf() },
-              { day: "Friday", workout: generatePlancheMidBeginnerSecondHalf() }
+              { day: "Monday", workout: generateMidBeginnerPlancheSecondHalf() },
+              { day: "Wednesday", workout: generateMidBeginnerPlancheSecondHalf() },
+              { day: "Friday", workout: generateMidBeginnerPlancheSecondHalf() }
             ]
           });
         }
@@ -134,9 +134,9 @@ const TrainingPlan = () => {
           plan.push({
             week: `Week ${week}`,
             days: [
-              { day: "Monday", workout: generatePlancheLateBeginnerFirstHalf() },
-              { day: "Wednesday", workout: generatePlancheLateBeginnerFirstHalf() },
-              { day: "Friday", workout: generatePlancheLateBeginnerFirstHalf() }
+              { day: "Monday", workout: generateLateBeginnerPlancheFirstHalf() },
+              { day: "Wednesday", workout: generateLateBeginnerPlancheFirstHalf() },
+              { day: "Friday", workout: generateLateBeginnerPlancheFirstHalf() }
             ]
           });
         }
@@ -146,9 +146,9 @@ const TrainingPlan = () => {
           plan.push({
             week: `Week ${week}`,
             days: [
-              { day: "Monday", workout: generatePlancheLateBeginnerSecondHalf() },
-              { day: "Wednesday", workout: generatePlancheLateBeginnerSecondHalf() },
-              { day: "Friday", workout: generatePlancheLateBeginnerSecondHalf() }
+              { day: "Monday", workout: generateLateBeginnerPlancheSecondHalf() },
+              { day: "Wednesday", workout: generateLateBeginnerPlancheSecondHalf() },
+              { day: "Friday", workout: generateLateBeginnerPlancheSecondHalf() }
             ]
           });
         }
@@ -166,9 +166,9 @@ const TrainingPlan = () => {
           plan.push({
             week: `Week ${week}`,
             days: [
-              { day: "Monday", workout: generateFrontLeverEarlyBeginnerFirstHalf() },
-              { day: "Wednesday", workout: generateFrontLeverEarlyBeginnerFirstHalf() },
-              { day: "Friday", workout: generateFrontLeverEarlyBeginnerFirstHalf() },
+              { day: "Monday", workout: generateEarlyBeginnerFrontLeverFirstHalf() },
+              { day: "Wednesday", workout: generateEarlyBeginnerFrontLeverFirstHalf() },
+              { day: "Friday", workout: generateEarlyBeginnerFrontLeverFirstHalf() },
             ],
           });
         }
@@ -178,9 +178,9 @@ const TrainingPlan = () => {
           plan.push({
             week: `Week ${week}`,
             days: [
-              { day: "Monday", workout: generateFrontLeverEarlyBeginnerSecondHalf() },
-              { day: "Wednesday", workout: generateFrontLeverEarlyBeginnerSecondHalf() },
-              { day: "Friday", workout: generateFrontLeverEarlyBeginnerSecondHalf() },
+              { day: "Monday", workout: generateEarlyBeginnerFrontLeverSecondHalf() },
+              { day: "Wednesday", workout: generateEarlyBeginnerFrontLeverSecondHalf() },
+              { day: "Friday", workout: generateEarlyBeginnerFrontLeverSecondHalf() },
             ],
           });
         }
@@ -193,9 +193,9 @@ const TrainingPlan = () => {
           plan.push({
             week: `Week ${week}`,
             days: [
-              { day: "Monday", workout: generateMidBeginnerFrontLeverBeginnerFirstHalf() },
-              { day: "Wednesday", workout: generateMidBeginnerFrontLeverBeginnerFirstHalf() },
-              { day: "Friday", workout: generateMidBeginnerFrontLeverBeginnerFirstHalf() },
+              { day: "Monday", workout: generateMidBeginnerFrontLeverFirstHalf() },
+              { day: "Wednesday", workout: generateMidBeginnerFrontLeverFirstHalf() },
+              { day: "Friday", workout: generateMidBeginnerFrontLeverFirstHalf() },
             ],
           });
         }
@@ -207,7 +207,7 @@ const TrainingPlan = () => {
             days: [
               { day: "Monday", workout: generateMidBeginnerFrontLeverSecondHalf() },
               { day: "Wednesday", workout: generateMidBeginnerFrontLeverSecondHalf() },
-              { day: "Friday", workout: generateMidBeginnerFrontLeverBeginnerSecondHalf() },
+              { day: "Friday", workout: generateMidBeginnerFrontLeverSecondHalf() },
             ],
           });
         }
@@ -240,7 +240,277 @@ const TrainingPlan = () => {
 
     //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+    if (level["FrontLever"] === "Beginner" && goal.includes("FrontLever") && goal.includes("Planche")) {
+      console.log("FrontLever && Planche")
+      const australianPullUpsCount = parseInt(userResponses["FrontLever-Beginner-0"], 10);
+      const tuckFrontLeverHoldTime = parseInt(userResponses["FrontLever-Beginner-1"], 10);
+      const pseudoPlanchePushupCount = parseInt(userResponses["Planche-Beginner-0"], 10);
+      const pseudoLeanHoldTime = parseInt(userResponses["Planche-Beginner-1"], 10);
+      //EarlyFrontLever:EarlyPlanche  
+      //MidFrontLever:MidPlanche 
+      //LateFrontLever:LatePlanche
+      if ((pseudoPlanchePushupCount === 0 || pseudoLeanHoldTime < 3) && (australianPullUpsCount < 3 || tuckFrontLeverHoldTime < 3)) {
+        console.log("EarlyFrontLever:EarlyPlanche")
+        // First 2 weeks routine
+        for (let week = 1; week <= 2; week++) {
+          plan.push({ 
+            week: `Week ${week}`,
+            days: [
+              { day: "Monday", workout: generateEarlyBeginnerPlancheFirstHalf() },
+              { day: "Tuesday", workout: generateEarlyBeginnerFrontLeverFirstHalf() },
+              { day: "Thursday", workout: generateEarlyBeginnerPlancheFirstHalf() },
+              { day: "Friday", workout: generateEarlyBeginnerFrontLeverFirstHalf() }
+            ]
+          });
+        }
 
+        // 3rd and 4th weeks routine (modified)
+        for (let week = 3; week <= 4; week++) {
+          plan.push({
+            week: `Week ${week}`,
+            days: [
+              { day: "Monday", workout: generateEarlyBeginnerPlancheSecondHalf() },
+              { day: "Tuesday", workout: generateEarlyBeginnerFrontLeverSecondHalf() },
+              { day: "Thursday", workout: generateEarlyBeginnerPlancheSecondHalf() },
+              { day: "Friday", workout: generateEarlyBeginnerFrontLeverSecondHalf() }
+            ]
+          });
+        }
+      } else if ((australianPullUpsCount > 3 && australianPullUpsCount <= 10 || tuckFrontLeverHoldTime > 3 && tuckFrontLeverHoldTime <= 8) && 
+      (pseudoPlanchePushupCount > 1 && pseudoPlanchePushupCount < 6 || pseudoLeanHoldTime > 3 && pseudoLeanHoldTime < 8)){
+        console.log("MidFrontLever:MidPlanche")
+        // Weeks 1 and 2 Routine
+        for (let week = 1; week <= 2; week++) {
+          plan.push({
+            week: `Week ${week}`,
+            days: [
+              { day: "Monday", workout: generateMidBeginnerPlancheFirstHalf() },
+              { day: "Tuesday", workout: generateMidBeginnerFrontLeverFirstHalf() },
+              { day: "Thursday", workout: generateMidBeginnerPlancheFirstHalf() },
+              { day: "Friday", workout: generateMidBeginnerFrontLeverFirstHalf() }
+            ],
+          });
+        }
+      
+        // Weeks 3 and 4 Routine (modified)
+        for (let week = 3; week <= 4; week++) {
+          plan.push({
+            week: `Week ${week}`,
+            days: [
+              { day: "Monday", workout: generateMidBeginnerPlancheSecondHalf() },
+              { day: "Tuesday", workout: generateMidBeginnerFrontLeverSecondHalf() },
+              { day: "Thursday", workout: generateMidBeginnerPlancheSecondHalf() },
+              { day: "Friday", workout: generateMidBeginnerFrontLeverSecondHalf() }
+            ],
+          });
+        }
+      } else if ((australianPullUpsCount > 10 && australianPullUpsCount <= 20 || tuckFrontLeverHoldTime > 8 && tuckFrontLeverHoldTime <= 18) && 
+      (pseudoPlanchePushupCount >= 6 && pseudoPlanchePushupCount <= 12 || pseudoLeanHoldTime >= 8 && pseudoLeanHoldTime <= 14)) {
+        console.log("LateFrontLever:LatePlanche")
+        // Weeks 1 and 2 Routine
+        for (let week = 1; week <= 2; week++) {
+          plan.push({
+            week: `Week ${week}`,
+            days: [
+              { day: "Monday", workout: generateLateBeginnerPlancheFirstHalf() },
+              { day: "Tuesday", workout: generateLateBeginnerFrontLeverFirstHalf() },
+              { day: "Thursday", workout: generateLateBeginnerPlancheFirstHalf() },
+              { day: "Friday", workout: generateLateBeginnerFrontLeverFirstHalf() }
+            ],
+          });
+        }
+      
+        // Weeks 3 and 4 Routine (modified)
+        for (let week = 3; week <= 4; week++) {
+          plan.push({
+            week: `Week ${week}`,
+            days: [
+              { day: "Monday", workout: generateLateBeginnerPlancheSecondHalf() },
+              { day: "Tuesday", workout: generateLateBeginnerFrontLeverSecondHalf() },
+              { day: "Thursday", workout: generateLateBeginnerPlancheSecondHalf() },
+              { day: "Friday", workout: generateLateBeginnerFrontLeverSecondHalf() }
+            ],
+          });
+        }
+      }
+      //EarlyFrontLever:MidPlanche
+      //EarlyPlanche:MidFrontLever
+      else if ((australianPullUpsCount < 3 || tuckFrontLeverHoldTime < 3) && 
+        (pseudoPlanchePushupCount > 1 && pseudoPlanchePushupCount < 6 || pseudoLeanHoldTime > 3 && pseudoLeanHoldTime < 8)){
+          console.log("EarlyFrontLever:MidPlanche")
+          // First 2 weeks routine
+        for (let week = 1; week <= 2; week++) {
+          plan.push({ 
+            week: `Week ${week}`,
+            days: [
+              { day: "Monday", workout: generateMidBeginnerPlancheFirstHalf() },
+              { day: "Tuesday", workout: generateEarlyBeginnerFrontLeverFirstHalf() },
+              { day: "Thursday", workout: generateMidBeginnerPlancheFirstHalf() },
+              { day: "Friday", workout: generateEarlyBeginnerFrontLeverFirstHalf() }
+            ]
+          });
+        }
+
+        // 3rd and 4th weeks routine (modified)
+        for (let week = 3; week <= 4; week++) {
+          plan.push({
+            week: `Week ${week}`,
+            days: [
+              { day: "Monday", workout: generateMidBeginnerPlancheSecondHalf() },
+              { day: "Tuesday", workout: generateEarlyBeginnerFrontLeverSecondHalf() },
+              { day: "Thursday", workout: generateMidBeginnerPlancheSecondHalf() },
+              { day: "Friday", workout: generateEarlyBeginnerFrontLeverSecondHalf() }
+            ]
+          });
+        }
+      } else if ((pseudoPlanchePushupCount === 0 || pseudoLeanHoldTime < 3) && 
+        (australianPullUpsCount > 3 && australianPullUpsCount <= 10 || tuckFrontLeverHoldTime > 3 && tuckFrontLeverHoldTime <= 8)){
+          console.log("EarlyPlanche:MidFrontLever")
+           // First 2 weeks routine
+        for (let week = 1; week <= 2; week++) {
+          plan.push({ 
+            week: `Week ${week}`,
+            days: [
+              { day: "Monday", workout: generateEarlyBeginnerPlancheFirstHalf() },
+              { day: "Tuesday", workout: generateMidBeginnerFrontLeverFirstHalf() },
+              { day: "Thursday", workout: generateEarlyBeginnerPlancheFirstHalf() },
+              { day: "Friday", workout: generateMidBeginnerFrontLeverFirstHalf() }
+            ]
+          });
+        }
+
+        // 3rd and 4th weeks routine (modified)
+        for (let week = 3; week <= 4; week++) {
+          plan.push({
+            week: `Week ${week}`,
+            days: [
+              { day: "Monday", workout: generateEarlyBeginnerPlancheSecondHalf() },
+              { day: "Tuesday", workout: generateMidBeginnerFrontLeverSecondHalf() },
+              { day: "Thursday", workout: generateEarlyBeginnerPlancheSecondHalf() },
+              { day: "Friday", workout: generateMidBeginnerFrontLeverSecondHalf() }
+            ]
+          });
+        }
+      }
+      //EarlyFrontLever:LatePlanche
+      //EarlyPlanche:LateFrontLever
+      else if ((australianPullUpsCount < 3 || tuckFrontLeverHoldTime < 3) && 
+      (pseudoPlanchePushupCount >= 6 && pseudoPlanchePushupCount <= 12 || pseudoLeanHoldTime >= 8 && pseudoLeanHoldTime <= 14)){
+        console.log("EarlyFrontLever:LatePlanche")
+        // First 2 weeks routine
+        for (let week = 1; week <= 2; week++) {
+          plan.push({ 
+            week: `Week ${week}`,
+            days: [
+              { day: "Monday", workout: generateLateBeginnerPlancheFirstHalf() },
+              { day: "Tuesday", workout: generateEarlyBeginnerFrontLeverFirstHalf() },
+              { day: "Thursday", workout: generateLateBeginnerPlancheFirstHalf() },
+              { day: "Friday", workout: generateEarlyBeginnerFrontLeverFirstHalf() }
+            ]
+          });
+        }
+
+        // 3rd and 4th weeks routine (modified)
+        for (let week = 3; week <= 4; week++) {
+          plan.push({
+            week: `Week ${week}`,
+            days: [
+              { day: "Monday", workout: generateLateBeginnerPlancheSecondHalf() },
+              { day: "Tuesday", workout: generateEarlyBeginnerFrontLeverSecondHalf() },
+              { day: "Thursday", workout: generateLateBeginnerPlancheSecondHalf() },
+              { day: "Friday", workout: generateEarlyBeginnerFrontLeverSecondHalf() }
+            ]
+          });
+        }
+      } else if ((pseudoPlanchePushupCount === 0 || pseudoLeanHoldTime < 3) && 
+      (australianPullUpsCount > 10 && australianPullUpsCount <= 20 || tuckFrontLeverHoldTime > 8 && tuckFrontLeverHoldTime <= 18)){
+        console.log("EarlyPlanche:LateFrontLever")
+         // First 2 weeks routine
+         for (let week = 1; week <= 2; week++) {
+          plan.push({ 
+            week: `Week ${week}`,
+            days: [
+              { day: "Monday", workout: generateEarlyBeginnerPlancheFirstHalf() },
+              { day: "Tuesday", workout: generateLateBeginnerFrontLeverFirstHalf() },
+              { day: "Thursday", workout: generateEarlyBeginnerPlancheFirstHalf() },
+              { day: "Friday", workout: generateLateBeginnerFrontLeverFirstHalf() }
+            ]
+          });
+        }
+
+        // 3rd and 4th weeks routine (modified)
+        for (let week = 3; week <= 4; week++) {
+          plan.push({
+            week: `Week ${week}`,
+            days: [
+              { day: "Monday", workout: generateEarlyBeginnerPlancheSecondHalf() },
+              { day: "Tuesday", workout: generateLateBeginnerFrontLeverSecondHalf() },
+              { day: "Thursday", workout: generateEarlyBeginnerPlancheSecondHalf() },
+              { day: "Friday", workout: generateLateBeginnerFrontLeverSecondHalf() }
+            ]
+          });
+        }
+      }
+      //MidFrontLever:LatePlanche 
+      //MidPlanche:LateFrontLever
+      else if ((australianPullUpsCount > 3 && australianPullUpsCount <= 10 || tuckFrontLeverHoldTime > 3 && tuckFrontLeverHoldTime <= 8) &&
+      (pseudoPlanchePushupCount >= 6 && pseudoPlanchePushupCount <= 12 || pseudoLeanHoldTime >= 8 && pseudoLeanHoldTime <= 14)){
+        console.log("MidFrontLever:LatePlanche")
+        // First 2 weeks routine
+        for (let week = 1; week <= 2; week++) {
+          plan.push({ 
+            week: `Week ${week}`,
+            days: [
+              { day: "Monday", workout: generateLateBeginnerPlancheFirstHalf() },
+              { day: "Tuesday", workout: generateMidBeginnerFrontLeverFirstHalf() },
+              { day: "Thursday", workout: generateLateBeginnerPlancheFirstHalf() },
+              { day: "Friday", workout: generateMidBeginnerFrontLeverFirstHalf() }
+            ]
+          });
+        }
+
+        // 3rd and 4th weeks routine (modified)
+        for (let week = 3; week <= 4; week++) {
+          plan.push({
+            week: `Week ${week}`,
+            days: [
+              { day: "Monday", workout: generateLateBeginnerPlancheSecondHalf() },
+              { day: "Tuesday", workout: generateMidBeginnerFrontLeverSecondHalf() },
+              { day: "Thursday", workout: generateLateBeginnerPlancheSecondHalf() },
+              { day: "Friday", workout: generateMidBeginnerFrontLeverSecondHalf() }
+            ]
+          });
+        }
+      } else if ((pseudoPlanchePushupCount > 1 && pseudoPlanchePushupCount < 6 || pseudoLeanHoldTime > 3 && pseudoLeanHoldTime < 8) &&
+      (australianPullUpsCount > 10 && australianPullUpsCount <= 20 || tuckFrontLeverHoldTime > 8 && tuckFrontLeverHoldTime <= 18)){
+        console.log("MidPlanche:LateFrontLever")
+        // First 2 weeks routine
+        for (let week = 1; week <= 2; week++) {
+          plan.push({ 
+            week: `Week ${week}`,
+            days: [
+              { day: "Monday", workout: generateMidBeginnerPlancheFirstHalf() },
+              { day: "Tuesday", workout: generateLateBeginnerFrontLeverFirstHalf() },
+              { day: "Thursday", workout: generateMidBeginnerPlancheFirstHalf() },
+              { day: "Friday", workout: generateLateBeginnerFrontLeverFirstHalf() }
+            ]
+          });
+        }
+
+        // 3rd and 4th weeks routine (modified)
+        for (let week = 3; week <= 4; week++) {
+          plan.push({
+            week: `Week ${week}`,
+            days: [
+              { day: "Monday", workout: generateMidBeginnerPlancheSecondHalf() },
+              { day: "Tuesday", workout: generateLateBeginnerFrontLeverSecondHalf() },
+              { day: "Thursday", workout: generateMidBeginnerPlancheSecondHalf() },
+              { day: "Friday", workout: generateLateBeginnerFrontLeverSecondHalf() }
+            ]
+          });
+        }
+      }
+    }
 
     //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -259,7 +529,7 @@ const TrainingPlan = () => {
   //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
   // Workout for Week 1 and 2
-  const generatePlancheEarlyBeginnerFirstHalf  = () => [
+  const generateEarlyBeginnerPlancheFirstHalf  = () => [
     { name: "Warm-Up: Shoulder Dislocates", reps: 10, sets: 2, rest: "30 sec" },
     { name: "Activation: Regular Push-Ups", reps: 3, sets: 3, rest: "1 min" },
     { name: "Skill Development: Regular Dips", reps: 3, sets: 2, rest: "2 min" },
@@ -269,7 +539,7 @@ const TrainingPlan = () => {
   ];
 
   // Workout for Week 3 and 4 (modified)
-  const generatePlancheEarlyBeginnerSecondHalf  = () => [
+  const generateEarlyBeginnerPlancheSecondHalf  = () => [
     { name: "Warm-Up: Shoulder Dislocates", reps: 10, sets: 2, rest: "30 sec" },
     { name: "Activation: Regular Push-Ups", reps: 3, sets: 3, rest: "1 min" },
     { name: "Skill Development: Pseudo Planche Leans On Knees", duration: "5 sec", sets: 5, rest: "3 min" },
@@ -281,7 +551,7 @@ const TrainingPlan = () => {
   //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
   // New Conditional Workouts for Pseudo Planche Push-Up Count >= 1 and < 6 or Pseudo Lean Hold > 3 seconds and < 8 seconds
-  const generatePlancheMidBeginnerFirstHalf  = () => [
+  const generateMidBeginnerPlancheFirstHalf  = () => [
     { name: "Warm-Up: Shoulder Dislocates", reps: 10, sets: 2, rest: "30 sec" },
     { name: "Activation: Explosive Pseudo Push-Ups on Knees", reps: 3, sets: 3, rest: "1 min" },
     { name: "Skill Development: Pseudo Planche Leans", duration: "5 sec", sets: 4, rest: "1 min" },
@@ -292,7 +562,7 @@ const TrainingPlan = () => {
     { name: "Cool Down: Horizontal Retractive Scapula Pull Up", reps: 3, sets: 5, rest: "1 min" },
   ];
 
-  const generatePlancheMidBeginnerSecondHalf  = () => [
+  const generateMidBeginnerPlancheSecondHalf  = () => [
     { name: "Warm-Up: Shoulder Dislocates", reps: 10, sets: 2, rest: "30 sec" },
     { name: "Activation: Explosive Pseudo Push-Ups on Knees", reps: 3, sets: 3, rest: "1 min" },
     { name: "Skill Development: Pseudo Planche Leans", duration: "3 sec", sets: 5, rest: "1 min" },
@@ -306,7 +576,7 @@ const TrainingPlan = () => {
   //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
   // Advanced Conditional Workouts for Pseudo Planche Push-Up Count >= 6 or Pseudo Lean Hold >= 8 seconds
-  const generatePlancheLateBeginnerFirstHalf = () => [
+  const generateLateBeginnerPlancheFirstHalf = () => [
     { name: "Warm-Up: Shoulder Dislocates", reps: 10, sets: 2, rest: "30 sec" },
     { name: "Activation: Explosive Pseudo Push-Ups on Knees", reps: 3, sets: 3, rest: "1 min" },
     { name: "Skill Development: Advanced Tuck Planche Holds", duration: "3 sec", sets: 10, rest: "2 min" },
@@ -317,7 +587,7 @@ const TrainingPlan = () => {
     { name: "Cool Down: Horizontal Retractive Scapula Pull Up", reps: 3, sets: 5, rest: "1 min" },
   ];
 
-  const generatePlancheLateBeginnerSecondHalf = () => [
+  const generateLateBeginnerPlancheSecondHalf = () => [
     { name: "Warm-Up: Shoulder Dislocates", reps: 10, sets: 2, rest: "30 sec" },
     { name: "Activation: Explosive Pseudo Push-Ups on Knees", reps: 3, sets: 3, rest: "1 min" },
     { name: "Skill Development: Advanced Tuck Planche Holds", duration: "3 sec", sets: 10, rest: "2 min" },
@@ -330,7 +600,7 @@ const TrainingPlan = () => {
 
   //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   
-  const generateFrontLeverEarlyBeginnerFirstHalf = () => [
+  const generateEarlyBeginnerFrontLeverFirstHalf = () => [
     { name: "Warm Up: Band Pull-Aparts", reps: 10, sets: 3, rest: "30 sec" },
     { name: "Activation: Horizontal Retractive Scapula Pull Up", reps: 5, sets: 4, rest: "1 min" },
     { name: "Skill Development: Incline Australian Pull Ups", reps: 5, sets: 4, rest: "2 min" },
@@ -340,7 +610,7 @@ const TrainingPlan = () => {
     { name: "Cool Down: Pseudo Planche Scapula Push Ups", reps: 3, sets: 5, rest: "1 min" },
   ];
   
-  const generateFrontLeverEarlyBeginnerSecondHalf = () => [
+  const generateEarlyBeginnerFrontLeverSecondHalf = () => [
     { name: "Warm Up: Band Pull-Aparts", reps: 10, sets: 3, rest: "30 sec" },
     { name: "Activation: Horizontal Retractive Scapula Pull Up", reps: 5, sets: 4, rest: "1 min" },
     { name: "Skill Development: Incline Australian Pull Ups", reps: 3, sets: 5, rest: "2 min" },
@@ -350,7 +620,7 @@ const TrainingPlan = () => {
     { name: "Cool Down: Pseudo Planche Scapula Push Ups", reps: 3, sets: 5, rest: "1 min" },
   ];
   
-  const generateMidBeginnerFrontLeverBeginnerFirstHalf = () => [
+  const generateMidBeginnerFrontLeverFirstHalf = () => [
     { name: "Warm Up: Band Pull-Aparts", reps: 10, sets: 3, rest: "30 sec" },
     { name: "Activation: Horizontal Retractive Scapula Pull Up", reps: 5, sets: 4, rest: "1 min" },
     { name: "Skill Development: Regular Australian Pull Ups", reps: 5, sets: 4, rest: "2 min" },
@@ -502,7 +772,7 @@ const styles = StyleSheet.create({
   planContainer: {
     padding: 20,
     alignItems: 'center',
-    paddingBottom: 1500,
+    paddingBottom: 2000,
   },
   weekBox: {
     backgroundColor: '#333333',

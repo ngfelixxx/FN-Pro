@@ -27,6 +27,7 @@ export default function App() {
 
   useEffect(() => {
     const checkReturningUser = async () => {
+      //await AsyncStorage.clear(); //run this if messed up async storage with invalid memory 
       try {
         // Attempt to retrieve values from AsyncStorage
         const storedName = await AsyncStorage.getItem('name') ?? '';
@@ -335,7 +336,7 @@ export default function App() {
       <KeyboardAvoidingView style={{ flex: 1 }} behavior={Platform.OS === "ios" ? "padding" : "height"}>
         <ScrollView contentContainerStyle={styles.scrollContainer}>
           <View style={styles.container}>
-          {selectedGoals.map((goal) => (
+          {Array.isArray(selectedGoals) && selectedGoals.map((goal) => (
               <View key={goal} style={styles.goalContainer}>
                 <Text style={styles.question}>Select your strength level for {goal}:</Text>
                 {["Beginner", "Intermediate", "Advanced"].map((level) => {
@@ -403,7 +404,7 @@ export default function App() {
         <View style={styles.infoBox}>
           <Text style={styles.infoText}>Name: {name}</Text>
           {Array.isArray(selectedGoals) && selectedGoals.length > 0 ? (
-            selectedGoals.map((goal) => (
+            Array.isArray(selectedGoals) && selectedGoals.map((goal) => (
               <View key={goal} style={styles.goalBox}>
                 <Text style={styles.infoText}>Goal: {goal}</Text>
                 <Text style={styles.infoText}>
