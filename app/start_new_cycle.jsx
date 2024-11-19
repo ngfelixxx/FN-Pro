@@ -110,6 +110,49 @@ const handleSubmit = async () => {
 
         // Log state before clearing AsyncStorage
         console.log("State before clear:", { selectedGoals, strengthLevels, responses });
+
+        // Check responses for all selected goals
+        let isValid = true;
+        let message = "";
+      
+        // Loop through all selected goals
+        for (const goal of selectedGoals) {
+          const level = strengthLevels[goal];
+          const questionsCount = questions[level][goal].length;
+      
+          // Loop through each question for the goal
+          for (let index = 0; index < questionsCount; index++) {
+            const responseKey = `${goal}-${level}-${index}`;
+            const response = responses[responseKey] ? parseInt(responses[responseKey], 10) : 0;
+      
+            // Example thresholds for Intermediate recommendation
+            if (goal === "FrontLever" && index === 1 && response > 18) {
+              isValid = false;
+              message = "Your performance suggests you might be more suited to the Intermediate level.";
+              break; // Exit loop if invalid
+            } else if (goal === "FrontLever" && index === 0 && response > 20) {
+              isValid = false;
+              message = "Your performance suggests you might be more suited to the Intermediate level.";
+              break; // Exit loop if invalid
+            }
+
+            if (goal === "Planche" && index === 1 && response > 14) {
+              isValid = false;
+              message = "Your performance suggests you might be more suited to the Intermediate level.";
+              break; // Exit loop if invalid
+            } else if (goal === "Planche" && index === 0 && response > 12) {
+              isValid = false;
+              message = "Your performance suggests you might be more suited to the Intermediate level.";
+              break; // Exit loop if invalid
+            }
+          }
+        }
+      
+        // Show message if invalid
+        if (!isValid) {
+          alert(message);
+          return; // Prevent submission
+        }
         
         // Clear AsyncStorage (except 'name')
         await clearAsyncStorageExceptName();
@@ -158,8 +201,7 @@ if (!isSubmitted) {
               <Text style={[styles.goalText]}>Front Lever</Text>
             </TouchableOpacity>
   
-            {selectedGoals.map((goal) => (
-              <View key={goal}>
+            {selectedGoals.map((goal) => (<View key={goal} style={styles.goalContainer}>
                 <Text style={styles.question}>Select your strength level for {goal}:</Text>
                 {["Beginner", "Intermediate", "Advanced"].map((level) => {
                   // Disable Intermediate and Advanced if Beginner is selected
@@ -198,7 +240,11 @@ if (!isSubmitted) {
                           placeholder="Enter your response"
                           placeholderTextColor="#888"
                           keyboardType="numeric"
-                          onChangeText={(text) => handleResponseChange(goal, index, text)}
+                          onChangeText={(text) => {
+                            // Allow only numbers and truncate to 2 digits
+                            const formattedText = text.replace(/[^0-9]/g, '').slice(0, 2);
+                            handleResponseChange(goal, index, formattedText);
+                          }}
                           value={responses[`${goal}-${strengthLevels[goal]}-${index}`]}
                         />
                       </View>
@@ -344,8 +390,7 @@ const styles = StyleSheet.create({
       marginBottom: 20, // Optional: to give space below the image
     },  
     goalContainer: {
-      width: '90%', // Ensure consistent width
-      alignSelf: 'center', // Center the content
-      marginVertical: 10, // Add spacing between sections
+      width: '100%', // Ensure consistent width
+      marginBottom: 20,
     },    
   });
