@@ -15,7 +15,9 @@ export default function StartNewCycle() {
   const imageMap = {
     "How many Pseudo Planche Push-Ups can you do?": require('../assets/images/Pseudo_Planche_Push_Ups.png'),
     "How long can you hold the Pseudo Planche Lean?(seconds)": require('../assets/images/Pseudo_Planche_Leans.png'),
-    // Add more mappings for other questions
+    // front lever
+    "How many Australian Pull-Ups can you do?": require('../assets/images/Regular_Australian_Pull_Ups.png'),
+    "How long can you hold a Tuck Front Lever?(seconds)": require('../assets/images/Tuck_Front_Lever_Hold.png'),
   };
 
   const questions = {
@@ -104,6 +106,14 @@ export default function StartNewCycle() {
     }
 };
 
+const isInputValid = (input) => {
+  if (!input) return false; // Null or undefined
+  if (typeof input === 'object') return Object.keys(input).length > 0; // Object is not empty
+  if (Array.isArray(input)) return input.length > 0; // Array is not empty
+  if (typeof input === 'string') return input.trim().length > 0; // String is not empty
+  return true; // For other types, assume valid
+};
+
 const handleSubmit = async () => {
     try {
         console.log("handleSubmit called");
@@ -157,16 +167,23 @@ const handleSubmit = async () => {
         // Clear AsyncStorage (except 'name')
         await clearAsyncStorageExceptName();
   
-        // Store the new values in AsyncStorage
-        await AsyncStorage.setItem('selectedGoals', selectedGoals ? JSON.stringify(selectedGoals) : []);
-        await AsyncStorage.setItem('strengthLevels', strengthLevels ? JSON.stringify(strengthLevels) : {});
-        await AsyncStorage.setItem('responses', responses ? JSON.stringify(responses) : {});
+        if (
+          isInputValid(selectedGoals) &&
+          isInputValid(strengthLevels) &&
+          isInputValid(responses)
+        ) {
+          // Save data to AsyncStorage
+          await AsyncStorage.setItem('selectedGoals', JSON.stringify(selectedGoals));
+          await AsyncStorage.setItem('strengthLevels', JSON.stringify(strengthLevels));
+          await AsyncStorage.setItem('responses', JSON.stringify(responses));
+        
+          // Navigate to the home screen
+          navigation.navigate('index');
+        } else {
+          alert("Please complete all fields based on your selected goals and strength levels");
+          // Optionally show an error message
+        }
 
-        // Log state after saving
-        console.log("State after save:", { selectedGoals, strengthLevels, responses });
-  
-        // Return to the home screen
-        navigation.navigate('index');
     } catch (error) {
         console.log("Error saving data", error);
     }

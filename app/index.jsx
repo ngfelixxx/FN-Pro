@@ -190,11 +190,6 @@ export default function App() {
       alert(message);
       return; // Prevent submission
     }
-
-    if(isValid){
-      setIsReturningUser(true);
-      await AsyncStorage.setItem('isReturningUser', 'true');
-    }
   
     // Check if all questions are answered
     const allGoalsAnswered = selectedGoals.every((goal) => {
@@ -208,6 +203,10 @@ export default function App() {
     // If all questions are answered, proceed with goal submission
     if (allGoalsAnswered) {
       setIsGoalSubmitted(true);
+      if(isValid){
+        setIsReturningUser(true);
+        await AsyncStorage.setItem('isReturningUser', 'true');
+      }
       await AsyncStorage.setItem('selectedGoals', JSON.stringify(selectedGoals));
       await AsyncStorage.setItem('strengthLevels', JSON.stringify(strengthLevels));
       await AsyncStorage.setItem('responses', JSON.stringify(responses));
