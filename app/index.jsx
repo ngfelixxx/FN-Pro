@@ -22,7 +22,9 @@ export default function App() {
   const imageMap = {
     "How many Pseudo Planche Push-Ups can you do?": require('../assets/images/Pseudo_Planche_Push_Ups.png'),
     "How long can you hold the Pseudo Planche Lean?(seconds)": require('../assets/images/Pseudo_Planche_Leans.png'),
-    // Add more mappings for other questions
+    //front lever
+    "How many Australian Pull-Ups can you do?": require('../assets/images/Regular_Australian_Pull_Ups.png'),
+    "How long can you hold a Tuck Front Lever?(seconds)": require('../assets/images/Tuck_Front_Lever_Hold.png'),
   };
 
   useEffect(() => {
@@ -336,7 +338,7 @@ export default function App() {
       <KeyboardAvoidingView style={{ flex: 1 }} behavior={Platform.OS === "ios" ? "padding" : "height"}>
         <ScrollView contentContainerStyle={styles.scrollContainer}>
           <View style={styles.container}>
-          {Array.isArray(selectedGoals) && selectedGoals.map((goal) => (
+          {selectedGoals.map((goal) => (
               <View key={goal} style={styles.goalContainer}>
                 <Text style={styles.question}>Select your strength level for {goal}:</Text>
                 {["Beginner", "Intermediate", "Advanced"].map((level) => {
